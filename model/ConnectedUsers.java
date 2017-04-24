@@ -44,6 +44,6 @@ public class ConnectedUsers implements ListSelectionListener {
 //		return retour;
 	}
 	public void valueChanged(ListSelectionEvent arg0) {
-		//System.out.println();
+		System.out.println("to");
 	}
 }
