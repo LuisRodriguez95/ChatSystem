@@ -9,11 +9,9 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
-import model.Local;
+import model.ConnectedUsers;
 import model.User;
-
 import user.MessageUser;
-
 import controller.UpdateConnectedUsers;
 
 
@@ -84,8 +82,14 @@ public class CheckConnectedUsers implements Runnable{
 	public void updateModel(Object recvObject){
 		MessageUser msgUser = (MessageUser)recvObject;// Mieux vaudrait faire avec le hashcode de l'objet
 		User user = new User(msgUser.getPseudo(), msgUser.getIP(), msgUser.getPort(),msgUser.getEtat());
-		if (!user.equals(this.localUser)){
-			UpdateConnectedUsers.getInstance().updateUser(user);
+		if (!user.equals(this.localUser) ){
+			if (!ConnectedUsers.getInstance().contains(user)){ // Si l'utiliasteur est nouveau
+				UpdateConnectedUsers.getInstance().updateUser(user);
+			}
+			else{	// S'il existe deja on met a jour sa date
+				User theUser = ConnectedUsers.getInstance().getUser(user);
+				UpdateConnectedUsers.getInstance().updateDate(theUser);
+			}
 		}
 	}
 		

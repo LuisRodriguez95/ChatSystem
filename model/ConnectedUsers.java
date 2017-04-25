@@ -1,10 +1,6 @@
 package model;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,6 +25,23 @@ public class ConnectedUsers implements ListSelectionListener {
 	private ConnectedUsers(){   //Private constructor to implement Singleton design pattern
 	}
 	
+	public boolean contains(User user){
+		
+		return this.listUsers.contains(user);
+		
+	}
+	
+	public User getUser(User user){
+		User theUser = null;
+		for (int i =0; i<this.listUsers.getSize();i++){
+			if (this.listUsers.get(i).equals(user)){
+				theUser = this.listUsers.get(i);
+			}
+		}
+		return theUser;
+		
+	}
+	
 	public DefaultListModel<User> getListUsers() {
 		return listUsers;
 	}
@@ -36,13 +49,8 @@ public class ConnectedUsers implements ListSelectionListener {
 	public String toString(){
 		return this.listUsers.toString();
 		
-//		String retour="";
-//		Iterator<User> it = this.setUsers.iterator() ;
-//		while(it.hasNext()){
-//			retour+= it.next().toString() +"\n";
-//		}
-//		return retour;
 	}
+	
 	public void valueChanged(ListSelectionEvent arg0) {
 		System.out.println("to");
 	}

@@ -3,12 +3,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -40,6 +43,8 @@ import view.ConnectedUsersWindow.MyListDataListener;
 
 public class ChatView implements ListSelectionListener{
 	static DefaultListModel<UserMessage> messages;
+	//private static StringBuilder buildSomething = new StringBuilder();
+	
 	public static void createFrame(final String user)
     {
         EventQueue.invokeLater(new Runnable()
@@ -83,6 +88,8 @@ public class ChatView implements ListSelectionListener{
                 inputpanel.setLayout(new FlowLayout());
                 final JTextField input = new JTextField(20);
                 
+                //textArea.setContentType("text/html");
+                
                 messages = new DefaultListModel<UserMessage>();
                 messages = Conversation.getInstance().getListUserMessage();
 
@@ -104,7 +111,9 @@ public class ChatView implements ListSelectionListener{
 							if (messages.get(i).getUser().getPseudo()=="Luis"){
 								try {
 					                textArea.setParagraphAttributes(remote, true);
-									textA.insertString(textA.getLength(), messages.get(i).getMessage() + "\n", remote);
+					                //buildSomething.append("<h1 style=\"border-style:solid\">" + messages.get(i).getMessage() + "</span>");
+									//textArea.setText(buildSomething.toString());
+					                textA.insertString(textA.getLength(), messages.get(i).getMessage() + "\n", remote);
 								} catch (BadLocationException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -159,6 +168,7 @@ public class ChatView implements ListSelectionListener{
 						
 					}
 				});
+                
                 button.setDefaultCapable(true);
                 DefaultCaret caret = (DefaultCaret) textArea.getCaret();
                 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);

@@ -10,6 +10,10 @@ public class PasswordDTB {
 		return hmap;
 	}
  
+    public static void addUser(String user, String pwd){
+    	hmap.put(user, pwd);
+    }
+    
     static {
     	  hmap.put("Luis", "123");
           hmap.put("qsdqsd", "123");

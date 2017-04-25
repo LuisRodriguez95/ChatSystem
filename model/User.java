@@ -60,4 +60,9 @@ public class User{
 		return miseAjour;
 	}
 	
+	public void setMiseAjour() {
+		Date date = new Date();
+		this.miseAjour = date;
+	}
+	
 }

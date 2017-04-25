@@ -48,16 +48,22 @@ public class ConnectWindow extends Observable {
 			public void actionPerformed(ActionEvent e) {
 				String user = textUser.getText();
 				String pass = textPwd.getText();
-				String pwd = PasswordDTB.getHmap().get(user);
-				System.out.println("user : " + user + " et pwd : " + pass
-						+ " bon pwd : " + pwd);
-				if (pwd.equals(textPwd.getText())) {
+				if (PasswordDTB.getHmap().containsKey(user)){
+					String pwd = PasswordDTB.getHmap().get(user);
+					if (pwd.equals(textPwd.getText())) {
+						new ConnectedUsersWindow();
+						connectListener.startChatProcess(user);
+						frame.dispose();
+					} else {
+						System.out.println("surprise motherfucker " + user
+								+ " mauvais user " + " le bon pwd est : " + pwd);
+					}
+				}
+				else{
+					PasswordDTB.addUser(user, pass);
 					new ConnectedUsersWindow();
 					connectListener.startChatProcess(user);
 					frame.dispose();
-				} else {
-					System.out.println("surprise motherfucker " + user
-							+ " mauvais user " + " le bon pwd est : " + pwd);
 				}
 
 			}
@@ -95,7 +101,7 @@ public class ConnectWindow extends Observable {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 	}
-
+/*
 	public static void main(String[] args) {
 		new PasswordDTB();
 		ConnectWindow f = new ConnectWindow();
@@ -114,7 +120,7 @@ public class ConnectWindow extends Observable {
 		};
 
 	}
-
+*/
 	public void setConnectListener(ConnectListener ct) {
 		this.connectListener = ct;
 

@@ -45,18 +45,16 @@ public class UpdateConnectedUsers implements Runnable {
 	 * @param user
 	 */
 	public void updateUser(User user){
-		if(user.getEtat()==typeConnect.CONNECTED){
-			users.getListUsers().removeElement(user); // Pour la mise à jour de la date d'actualisation
+		if(user.getEtat()==typeConnect.CONNECTED){		
 			users.getListUsers().addElement(user);
 		}
 		else {
 			users.getListUsers().removeElement(user);
 		}
-//		if (users.getListUsers().)
-//		users.getSetUsers().remove(user);
-//		if (user.getEtat()==typeConnect.CONNECTED){ // si c'est un message de deconnexion 
-//			users.getSetUsers().add(user);
-//		}
+	}
+	
+	public void updateDate(User user){
+		user.setMiseAjour();
 	}
 	
 	/**
@@ -78,27 +76,7 @@ public class UpdateConnectedUsers implements Runnable {
 			this.users.getListUsers().removeElement(user);
 		}
 	}
-}
-//	public void detectDeconnection(){
-//		Date now = new Date();
-//		ArrayList<User> usersToRemove = new ArrayList<User>();
-//		if (!this.users.getSetUsers().isEmpty()) {  // Si le set d'users n'est pas vide
-//			Iterator<User> it = this.users.getSetUsers().iterator() ;
-//			while(it.hasNext()){
-//				User user = it.next();
-//				//System.out.println(" difference  : " +  (now.getTime() - user.getMiseAjour().getTime() ) );
-//				if( (now.getTime() - user.getMiseAjour().getTime()) > this.timerLost){
-//					System.out.println("User déconnecté: "+ user.toString());
-//					usersToRemove.add(user);
-//				}
-//			}
-//			// usersToRemove.forEach(item->this.setUsers.remove(item));
-//			for(User user : usersToRemove){
-//				this.users.getSetUsers().remove(user);
-//			}
-//		}
-//	}
-	
+}	
 	
 	public void run() {
 		while(true){

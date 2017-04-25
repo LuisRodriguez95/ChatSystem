@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -8,14 +9,18 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
@@ -28,12 +33,12 @@ import model.PasswordDTB;
 import model.User;
 
 
-public class ConnectedUsersWindow extends JFrame implements ListSelectionListener {
+public class ConnectedUsersWindow implements ListSelectionListener {
 	/** a label for the name */
-	//JFrame frame = new JFrame();
+	 JFrame frame = new JFrame();
 	 private JList<User> connectedUsersList;
 	 /** a button to perform an action: e.g. say hello (TBD) */
-	 public static JButton buttonChat,buttonStatus,buttonDisconnect,buttonVide;
+	 public JButton buttonChat,buttonStatus,buttonDisconnect,buttonVide;
 	 private DefaultListModel<User> listModel ;
 	 
 	 
@@ -44,7 +49,7 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 	 
 	 private void initComponents(){
 		 
-		Container pane = this.getContentPane();
+		Container pane = frame.getContentPane();
 		pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		 
 	    pane.setLayout(new GridBagLayout());
@@ -73,7 +78,8 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 			
 			public void actionPerformed(ActionEvent e) {
 				new ConnectWindow();
-				ConnectedUsersWindow.this.dispatchEvent(new WindowEvent(ConnectedUsersWindow.this, WindowEvent.WINDOW_CLOSING));
+				frame.dispose();
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 				
 			}
 		});
@@ -90,18 +96,25 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 	    c.gridy = 0;
 	    pane.add(buttonVide, c);
 
-//		DefaultListModel<Object> listModel = new DefaultListModel<Object>();
-//		listModel = Params.getListModel();
-//		listModel.addElement("samere");
-
-        //listModel.addListDataListener(new MyListDataListener());
-
         listModel = new DefaultListModel<User>();
         listModel = ConnectedUsers.getInstance().getListUsers();
         listModel.addListDataListener(new MyListDataListener());
-        System.out.println("sam"+listModel.toString());
+    
         
 		connectedUsersList = new JList<User>(listModel);
+		connectedUsersList.setCellRenderer(new DefaultListCellRenderer(){
+			@Override
+			public Component getListCellRendererComponent(JList<?> list,
+					Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+						User user = (User) value;
+				
+						String userString = user.getPseudo();
+				
+						return super.getListCellRendererComponent(list, userString, index, isSelected,
+						cellHasFocus);
+			}
+		});
 		connectedUsersList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		connectedUsersList.setSelectedIndex(0);
 		connectedUsersList.addListSelectionListener(this);
@@ -114,12 +127,11 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 	    c.gridx = 0;
 	    c.gridy = 1;
 	    pane.add(listScrollPane, c);
-
 		buttonChat = new JButton("Chat");
 		buttonChat.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				String obj = connectedUsersList.getSelectedValue().toString();
+				String obj = connectedUsersList.getSelectedValue().getPseudo();
 				System.out.println(obj);
 				ChatView.createFrame(obj);
 			}
@@ -135,13 +147,9 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 	    pane.add(buttonChat, c);
 	    
 	    
-
-		 //connectedUsersList.addListSelectionListener(this);
-		 
-		 // the JFrame is visible now
-	    this.pack();
-		this.setVisible(true);
-		//this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    frame.pack();
+	    frame.setVisible(true);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 	 }
 	 
@@ -150,20 +158,20 @@ public class ConnectedUsersWindow extends JFrame implements ListSelectionListene
 	    	System.out.println("jjj");
 	    }
 	    public void intervalAdded(ListDataEvent e) {
-	    	System.out.println("qsd");
+	    	//System.out.println("qsd");
 	    }
 	    public void intervalRemoved(ListDataEvent e) {
-	    	System.out.println("sdf");
+	    	//System.out.println("sdf");
 	    }
 	}
-	 
+	 /*
 	 public static void main(String[] args) {
 		    new PasswordDTB();
 		    ConnectedUsersWindow f = new ConnectedUsersWindow();
 		  }
-
+*/
 	public void valueChanged(ListSelectionEvent arg0) {
-		System.out.println("osef");
+		//System.out.println("osef");
 		
 	}
 }
