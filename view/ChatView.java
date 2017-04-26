@@ -1,18 +1,15 @@
 package view;
 
+import interfaces.MessageChannel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -20,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
@@ -35,17 +31,22 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import model.ConnectedUsers;
 import model.Conversation;
-import model.User;
-import model.UserMessage;
-import view.ConnectedUsersWindow.MyListDataListener;
+import model.ListeConversations;
+import model.Message;
 
 public class ChatView implements ListSelectionListener{
-	static DefaultListModel<UserMessage> messages;
-	//private static StringBuilder buildSomething = new StringBuilder();
 	
-	public static void createFrame(final String user)
+	//private static StringBuilder buildSomething = new StringBuilder();
+	private MessageChannel listeners;
+	
+	private Conversation convo;
+	
+//	public void addConversationTolisten(ConversationCanal convo){ TODO : creer ConversationCanal pour recuperer Cnversation
+//		this.convo = convo;
+//	}
+	
+	public void createFrame(final String user)
     {
         EventQueue.invokeLater(new Runnable()
         {
@@ -89,31 +90,28 @@ public class ChatView implements ListSelectionListener{
                 final JTextField input = new JTextField(20);
                 
                 //textArea.setContentType("text/html");
+                final DefaultListModel<Message> messages = ChatView.this.convo.getMessageList();
                 
-                messages = new DefaultListModel<UserMessage>();
-                messages = Conversation.getInstance().getListUserMessage();
-
                 
                 messages.addListDataListener(new ListDataListener() {
 					
-					@Override
+	
 					public void intervalRemoved(ListDataEvent e) {
 						System.out.println("changement2");
 						
 					}
 					
-					@Override
 					public void intervalAdded(ListDataEvent e) {
 
 		                textArea.setText("");
 						System.out.println("changement3");
 						for (int i = 0;i<messages.getSize();i++){
-							if (messages.get(i).getUser().getPseudo()=="Luis"){
+							if (messages.get(i).getExpediteur().getPseudo()=="Luis"){
 								try {
 					                textArea.setParagraphAttributes(remote, true);
 					                //buildSomething.append("<h1 style=\"border-style:solid\">" + messages.get(i).getMessage() + "</span>");
 									//textArea.setText(buildSomething.toString());
-					                textA.insertString(textA.getLength(), messages.get(i).getMessage() + "\n", remote);
+					                textA.insertString(textA.getLength(), messages.get(i).getData() + "\n", remote);
 								} catch (BadLocationException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -122,7 +120,7 @@ public class ChatView implements ListSelectionListener{
 							else{
 								try {
 					                textArea.setParagraphAttributes(local, true);
-									textA.insertString(textA.getLength(), messages.get(i).getMessage() + "\n", local);
+									textA.insertString(textA.getLength(), messages.get(i).getData() + "\n", local);
 								} catch (BadLocationException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -134,7 +132,7 @@ public class ChatView implements ListSelectionListener{
 						
 					}
 					
-					@Override
+
 					public void contentsChanged(ListDataEvent e) {
 						System.out.println("changement");
 						
@@ -165,6 +163,8 @@ public class ChatView implements ListSelectionListener{
 								e1.printStackTrace();
 							}
 						}
+					/////	ChatView.this.listeners.sendMessage(contact, data);
+						// ne pas oublier de mettre à jour la liste de conversations
 						
 					}
 				});
@@ -186,15 +186,25 @@ public class ChatView implements ListSelectionListener{
         });
     }
 	
-	
+	public void addlistener(MessageChannel listener){
+		this.listeners=listener;
+	}
+
 	
 //	public static void main(String[] args) {
 //		createFrame("Luis");
 //	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		Conversation convo = new Conversation();
+		ChatView chat = new ChatView();
+		//chat.addConversationTolisten(convo);
+		//convo.addMessage(message)
+			
 	}
 }

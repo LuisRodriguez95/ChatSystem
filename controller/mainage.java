@@ -1,19 +1,8 @@
 package controller;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Observer;
-
-import model.Conversation;
-import model.User;
-
-import user.MessageUser.typeConnect;
-import view.ChatView;
 import view.ConnectListener;
 import view.ConnectWindow;
+
 
 public class mainage {
 
@@ -22,8 +11,8 @@ public class mainage {
 	 */
 	public static void main(String[] args) {
 		
-		final ChatView test = new ChatView(); 
-		final ChatView view = new ChatView();
+ 
+/*		final ChatView view = new ChatView();
 		 
 		view.createFrame("Luis");
 		int i = 0;
@@ -38,7 +27,10 @@ public class mainage {
 				User user;
 				try {
 					user = new User("Luis",InetAddress.getLocalHost() , 1223, typeConnect.CONNECTED);
-					Conversation.addMessage(user, "pairsqdfqsdfsqd \n qsdfsqdfsqdf",new Date());
+					Conversation convo = new Conversation();
+					convo.addMessage(message)
+					Conversation.addMessage(user, "pairsqdfqsdfsqd \n qsdfsqdfsqdf"));
+					
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -62,11 +54,12 @@ public class mainage {
 			}
 			i++;
 		}
-/*
+		*/
+
 		final ConnectWindow view = new ConnectWindow();
 		final ConnectListener ct = new ChatProcess();
 		view.setConnectListener(ct);
-*/
+
 	}
 
 }

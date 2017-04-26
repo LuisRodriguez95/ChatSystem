@@ -1,6 +1,12 @@
 package view;
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 
 public class MyTextPane implements Runnable {
 
@@ -32,7 +38,6 @@ public class MyTextPane implements Runnable {
         new Thread(this).start();
     }
 
-    @Override
     public void run() {
         try {
             Thread.sleep(1000);
@@ -41,7 +46,6 @@ public class MyTextPane implements Runnable {
         }
         SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
             public void run() {
                 jta.setText(buildSomething.toString());
             }
@@ -52,7 +56,6 @@ public class MyTextPane implements Runnable {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
             public void run() {
                 MyTextPane fs = new MyTextPane();
             }

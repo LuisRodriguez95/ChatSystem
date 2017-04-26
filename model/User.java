@@ -2,6 +2,7 @@ package model;
 
 import java.net.InetAddress;
 import java.util.Date;
+
 import user.MessageUser.typeConnect;
 public class User{
 

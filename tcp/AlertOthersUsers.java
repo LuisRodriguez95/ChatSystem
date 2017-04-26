@@ -10,7 +10,6 @@ import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
 import model.User;
-
 import user.MessageUser;
 
 

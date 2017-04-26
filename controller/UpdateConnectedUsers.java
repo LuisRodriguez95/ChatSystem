@@ -2,7 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 import model.ConnectedUsers;
 import model.User;

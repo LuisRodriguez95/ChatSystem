@@ -1,9 +1,7 @@
 package controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Observable;
 
-import model.ConnectedUsers;
 import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
@@ -22,7 +20,6 @@ public class ChatProcess implements ConnectListener {
 	
 
 	public ChatProcess() {
-		sy	
 	}
 	
 	public void startChatProcess(String pseudo) {
