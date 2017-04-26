@@ -22,7 +22,7 @@ public class mainage {
 	 */
 	public static void main(String[] args) {
 		
- 
+		final ChatView test = new ChatView(); 
 		final ChatView view = new ChatView();
 		 
 		view.createFrame("Luis");

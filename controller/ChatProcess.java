@@ -22,6 +22,7 @@ public class ChatProcess implements ConnectListener {
 	
 
 	public ChatProcess() {
+		sy	
 	}
 	
 	public void startChatProcess(String pseudo) {
