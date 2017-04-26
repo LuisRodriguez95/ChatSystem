@@ -18,7 +18,6 @@ public class AlertOthersUsers implements Runnable {
 	private MulticastSocket socket;
 	private int portMulticast;
 	private Object objToSend;
-
 	/**
 	 * Given an object, send a multicast datagram to the given MulticastAddress
 	 * @param multicastAddress Address of the multicast to connect with peer
