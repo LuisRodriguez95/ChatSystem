@@ -2,10 +2,8 @@ package interfaces;
 
 import model.User;
 
-public interface ChangeView {
+public interface UserListListener {
 	public void openChat(User user);
-	
-	public void openConnectedUsersWindows();
-	
+	public void setLUPseudo(String pseudo);	
 	
 }

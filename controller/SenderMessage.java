@@ -1,7 +1,5 @@
 package controller;
 
-import interfaces.MessageChannel;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 

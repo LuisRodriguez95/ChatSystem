@@ -19,14 +19,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.ChatViewController;
+import interfaces.ConnectListener;
+import interfaces.UserListListener;
 import model.ConnectedUsers;
 import model.User;
-import controller.ChatProcess;
 
 
 public class ConnectedUsersWindow implements ListSelectionListener {
@@ -36,9 +39,13 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	 /** a button to perform an action: e.g. say hello (TBD) */
 	 public JButton buttonChat,buttonStatus,buttonDisconnect,buttonVide;
 	 private DefaultListModel<User> listModel ;
+	 private UserListListener listener;
 	 
-	 
-	 public ConnectedUsersWindow(){
+	 public void setListener(UserListListener listener) {
+		this.listener = listener;
+	}
+
+	public ConnectedUsersWindow(){
 		 
 		 initComponents();
 	 }
@@ -58,7 +65,7 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 			
 			public void actionPerformed(ActionEvent e) {
 				String status = JOptionPane.showInputDialog(buttonChat,"Enter new status", null);
-				ChatProcess.localUser.setPseudo(status);
+				ConnectedUsersWindow.this.listener.setLUPseudo(status);
 			}
 		});
 		
@@ -99,7 +106,7 @@ public class ConnectedUsersWindow implements ListSelectionListener {
         
 		connectedUsersList = new JList<User>(listModel);
 		connectedUsersList.setCellRenderer(new DefaultListCellRenderer(){
-			@Override
+			
 			public Component getListCellRendererComponent(JList<?> list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
@@ -127,9 +134,9 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 		buttonChat.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				String obj = connectedUsersList.getSelectedValue().getPseudo();
-				System.out.println(obj);
-				ChatView.createFrame(obj);
+				User user = connectedUsersList.getSelectedValue();
+				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
+				listener.openChat(user);
 			}
 		});
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -170,4 +177,6 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 		//System.out.println("osef");
 		
 	}
+
+
 }

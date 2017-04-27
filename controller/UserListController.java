@@ -2,14 +2,16 @@ package controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import interfaces.ConnectListener;
+import interfaces.UserListListener;
 import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
 import user.MessageUser.typeConnect;
-import view.ConnectListener;
+import view.ConnectedUsersWindow;
 
-public class ChatProcess implements ConnectListener {
-	public static User localUser; // localUser is the user connected to the ChatSystem 
+public class UserListController implements ConnectListener, UserListListener {
+	public  User localUser; // localUser is the user connected to the ChatSystem 
 	private int portContact=3400; // his contact port 
 // rajouter private int adresseIPdeBroadcast
 	private int portBroadcast=6789;
@@ -19,10 +21,13 @@ public class ChatProcess implements ConnectListener {
 	 */
 	
 
-	public ChatProcess() {
+	public UserListController() {
 	}
 	
 	public void startChatProcess(String pseudo) {
+		ConnectedUsersWindow window = new ConnectedUsersWindow();
+		UserListListener listener = this;
+		window.setListener(listener);
 		System.out.println("Welcome " + pseudo);
 		InetAddress ip;
 		try {
@@ -45,6 +50,19 @@ public class ChatProcess implements ConnectListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void openChat(User user) {
+	  	  new ChatViewController(localUser);
+		
+	}
+
+	@Override
+	public void setLUPseudo(String pseudo) {
+		this.localUser.setPseudo(pseudo);
+		
+	}
+	
 	
 
 }

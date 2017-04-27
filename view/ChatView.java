@@ -1,7 +1,5 @@
 package view;
 
-import interfaces.MessageChannel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,29 +29,35 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import interfaces.MessageChannel;
 import model.Conversation;
-import model.ListeConversations;
 import model.Message;
+import model.User;
 
 public class ChatView implements ListSelectionListener{
-	
-	//private static StringBuilder buildSomething = new StringBuilder();
+	private User user;
+	public ChatView(User user) {
+		this.user = user;
+		createFrame(user);
+	}
+
 	private MessageChannel listeners;
 	
 	private Conversation convo;
-	
-//	public void addConversationTolisten(ConversationCanal convo){ TODO : creer ConversationCanal pour recuperer Cnversation
-//		this.convo = convo;
-//	}
-	
-	public void createFrame(final String user)
+
+	public void setConvo(Conversation convo) {
+		this.convo = convo;
+	}
+
+	public void createFrame(final User user)
     {
         EventQueue.invokeLater(new Runnable()
         {
             
             public void run()
             {
-                JFrame frame = new JFrame(user);
+            	String pseudo = user.getPseudo();
+                JFrame frame = new JFrame(pseudo);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 try 
                 {
@@ -90,8 +94,8 @@ public class ChatView implements ListSelectionListener{
                 final JTextField input = new JTextField(20);
                 
                 //textArea.setContentType("text/html");
-                final DefaultListModel<Message> messages = ChatView.this.convo.getMessageList();
-                
+                final DefaultListModel<Message> messages; 
+                messages = ChatView.this.convo.getMessageList();
                 
                 messages.addListDataListener(new ListDataListener() {
 					
@@ -106,7 +110,7 @@ public class ChatView implements ListSelectionListener{
 		                textArea.setText("");
 						System.out.println("changement3");
 						for (int i = 0;i<messages.getSize();i++){
-							if (messages.get(i).getExpediteur().getPseudo()=="Luis"){
+							if (messages.get(i).getExpediteur()==ChatView.this.user){
 								try {
 					                textArea.setParagraphAttributes(remote, true);
 					                //buildSomething.append("<h1 style=\"border-style:solid\">" + messages.get(i).getMessage() + "</span>");
@@ -163,8 +167,9 @@ public class ChatView implements ListSelectionListener{
 								e1.printStackTrace();
 							}
 						}
-					/////	ChatView.this.listeners.sendMessage(contact, data);
-						// ne pas oublier de mettre à jour la liste de conversations
+						ChatView.this.listeners.sendMessage(user, text);
+						Message mess = new Message(user, text);
+						ChatView.this.convo.addMessage(mess);
 						
 					}
 				});
@@ -186,25 +191,20 @@ public class ChatView implements ListSelectionListener{
         });
     }
 	
-	public void addlistener(MessageChannel listener){
+	public void setListeners(MessageChannel listener){
 		this.listeners=listener;
 	}
-
 	
-//	public static void main(String[] args) {
-//		createFrame("Luis");
-//	}
-
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public static void main(String[] args) {
-		Conversation convo = new Conversation();
-		ChatView chat = new ChatView();
-		//chat.addConversationTolisten(convo);
-		//convo.addMessage(message)
-			
-	}
+//	public static void main(String[] args) {
+//		Conversation convo = new Conversation();
+//		ChatView chat = new ChatView();
+//		//chat.addConversationTolisten(convo);
+//		//convo.addMessage(message)
+//			
+//	}
 }

@@ -17,7 +17,14 @@ public class ListeConversations implements MessageChannel {
 	}
 	
 	public Conversation getConversation(User user){
-		return this.listeConversations.get(user);
+		if (this.listeConversations.containsValue(user)) {
+			return this.listeConversations.get(user);
+		}
+		else{
+			Conversation conv = new Conversation(); // creer une nouvelle conversation pour l'utilisateur
+			this.listeConversations.put(user, conv);
+			return this.listeConversations.get(user);			
+		}
 	}
 	
 	public void addReceivedMessage(Message message) {

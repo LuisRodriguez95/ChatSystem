@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import interfaces.ConnectListener;
 import model.PasswordDTB;
 
 public class ConnectWindow extends Observable {
@@ -56,7 +57,6 @@ public class ConnectWindow extends Observable {
 				}
 				else{
 					PasswordDTB.addUser(user, pass);
-					new ConnectedUsersWindow();
 					connectListener.startChatProcess(user);
 					frame.dispose();
 				}
