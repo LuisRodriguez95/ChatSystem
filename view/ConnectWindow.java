@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import interfaces.ConnectListener;
+import interfaces.CanalVuesController;
 import model.PasswordDTB;
 
 public class ConnectWindow extends Observable {
@@ -24,7 +24,7 @@ public class ConnectWindow extends Observable {
 	/** a button to perform an action: e.g. say hello (TBD) */
 	private final JButton button;
 
-	private ConnectListener connectListener;
+	private CanalVuesController listener;
 
 	public ConnectWindow() {
 		frame = new JFrame();
@@ -48,7 +48,8 @@ public class ConnectWindow extends Observable {
 					String pwd = PasswordDTB.getHmap().get(user);
 					if (pwd.equals(textPwd.getText())) {
 						new ConnectedUsersWindow();
-						connectListener.startChatProcess(user);
+						listener.setLocalUser(user);
+						listener.startChat();
 						frame.dispose();
 					} else {
 						System.out.println("surprise motherfucker " + user
@@ -57,7 +58,8 @@ public class ConnectWindow extends Observable {
 				}
 				else{
 					PasswordDTB.addUser(user, pass);
-					connectListener.startChatProcess(user);
+					listener.setLocalUser(user);
+					listener.startChat();
 					frame.dispose();
 				}
 
@@ -116,9 +118,8 @@ public class ConnectWindow extends Observable {
 
 	}
 */
-	public void setConnectListener(ConnectListener ct) {
-		this.connectListener = ct;
-
+	public void setConnectListener(CanalVuesController ct) {
+		this.listener = ct;
 	}
 
 }

@@ -16,24 +16,19 @@ import controller.UpdateConnectedUsers;
 
 
 public class CheckConnectedUsers implements Runnable{
-	private InetAddress group;
+	private final InetAddress group;
 	private MulticastSocket socket;
-	private int port;
-	private User localUser ; 
+	private final int port;
+	private final User localUser ; 
 
 	/**
 	 * Reçoit en permanence les datagrams envoyés à destination du groupe multicast (messages de type MessageUser)
 	 * @param multicastAdress Address of the multicast to connect with peer
 	 * @param port Port you want to connect with
 	 */
-	public CheckConnectedUsers(String multicastAdress, int port){
+	public CheckConnectedUsers(InetAddress multicastAdress, int port, User localUser){
 		this.port=port;
-		try {
-			this.group = InetAddress.getByName(multicastAdress);
-		} catch (UnknownHostException e) {
-			System.out.println("Erreur à la création du groupe multicast");
-			e.printStackTrace();
-		}
+		this.group = multicastAdress;
 		try {
 			this.socket= new MulticastSocket(this.port);
 		} catch (IOException e) {
@@ -45,15 +40,10 @@ public class CheckConnectedUsers implements Runnable{
 		} catch (IOException e) {
 			System.out.println("Erreur au bind du socket multicast");
 			e.printStackTrace();
-
 		}
-		
-	}
-	
-	public void setLocalUser(User localUser){
 		this.localUser=localUser;
 	}
-
+	
 
 	public void recv(){
 		byte[] recvBuf = new byte[1000];

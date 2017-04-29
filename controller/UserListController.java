@@ -1,71 +1,68 @@
 package controller;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Random;
 
-import interfaces.ConnectListener;
-import interfaces.UserListListener;
+import interfaces.CanalVuesController;
+import model.ConnectedUsers;
 import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
 import user.MessageUser.typeConnect;
-import view.ConnectedUsersWindow;
 
-public class UserListController implements ConnectListener, UserListListener {
-	public  User localUser; // localUser is the user connected to the ChatSystem 
-	private int portContact=3400; // his contact port 
-// rajouter private int adresseIPdeBroadcast
-	private int upperbound = 30000;
-	private int lowerbound = 2000;
-	private int portBroadcast=6789;
-	/**
-	 * 
-	 * @param pseudo of the user connected to the ChatSystem
-	 */
+public class UserListController  {
+	private final User localUser; // localUser is the user connected to the ChatSystem 
+	private final String adrMulticast="228.5.6.7";  // TO MODIFY
+	private final InetAddress ipMulticast; // adresse de contact 
+	private final int portMulticast=6789;
 	
-
-	public UserListController() {
+	private final UpdateConnectedUsers updater;
+	private final AlertOthersUsers alerter;
+	private final CheckConnectedUsers listeningSocket;
+//	private int upperbound = 30000;
+//	private int lowerbound = 2000;
+	
+public UserListController(User localUser) {
+		this.localUser=localUser;
+		InetAddress ipMultiInterm=null;
+		try {
+			ipMultiInterm =  InetAddress.getByName(this.adrMulticast);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.ipMulticast=ipMultiInterm;
+		this.updater = UpdateConnectedUsers.getInstance();
+		this.alerter = new AlertOthersUsers(this.ipMulticast, this.portMulticast, this.localUser);
+		this.listeningSocket = new CheckConnectedUsers(this.ipMulticast, this.portMulticast, this.localUser);
 	}
 	
-	public void startChatProcess(String pseudo) {
-		ConnectedUsersWindow window = new ConnectedUsersWindow();
-		UserListListener listener = this;
-		window.setListener(listener);
-		System.out.println("Welcome " + pseudo);
-		InetAddress ip;
-		try {
-			ip = InetAddress.getLocalHost();
-			Random r = new Random();
-			portContact = r.nextInt(upperbound-lowerbound) + lowerbound;
-			this.localUser= new User(pseudo, ip, portContact, typeConnect.CONNECTED); //LocalUser
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		CheckConnectedUsers listeningSocket = new CheckConnectedUsers("228.5.6.7", this.portBroadcast); 
-		listeningSocket.setLocalUser(this.localUser);
-		
-		AlertOthersUsers alerter = new AlertOthersUsers("228.5.6.7",  this.portBroadcast , this.localUser);
+	public void startChatProcess() {
 		new Thread(alerter).start();
 		new Thread(listeningSocket).start();
 	}
-	
-	public void sendMessage(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void openChat(User user) {
-	  	  new ChatViewController(localUser);
-		
-	}
-
-	public void setLUPseudo(String pseudo) {
-		this.localUser.setPseudo(pseudo);
-		
-	}
-	
-	
-
 }
+//	
+//	/**
+//	 * Methode permettant de tester le bon fonctionnement de cette classe, qui permet de 
+//	 *  - Savoir quels utilisteurs sont connectés
+//	 *  - Alerter les autres utilisateurs qui sont connectés
+//	 * @param args
+//	 */
+//	public static void main(String[] args) {
+//		User me=null;
+//		try {
+//			me = new User("Denis", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		UserListController ctrl = new UserListController(me);
+//		ctrl.startChatProcess();
+//		while (true) {
+//			try {
+//				Thread.sleep(2000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			System.out.println(ConnectedUsers.getInstance());
+//		}
+//	}
+//	

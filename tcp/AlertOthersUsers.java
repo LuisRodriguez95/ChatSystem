@@ -24,13 +24,8 @@ public class AlertOthersUsers implements Runnable {
 	 * @param port Port you want to connect with
 	 * @param objToSend the Object to send in multicat
 	 */
-	public AlertOthersUsers(String multicastAddress, int portMulticast,User localUser){
-		try {
-			this.group = InetAddress.getByName(multicastAddress);
-		} catch (UnknownHostException e) {
-			System.out.println("Erreur à la création du groupe multicast");
-			e.printStackTrace();
-		}
+	public AlertOthersUsers(InetAddress multicastAddress, int portMulticast,User localUser){
+		this.group = multicastAddress;
 		try {
 			this.socket= new MulticastSocket(portMulticast);
 		} catch (IOException e) {
@@ -49,9 +44,6 @@ public class AlertOthersUsers implements Runnable {
 	}
 
 	public void send(Object objToSend){   //fonction blocante pour le moment
-		// First step : create an serializable object to send ( messageUser ) 
-		//MessageUser me = new MessageUser("Joris",InetAddress.getByName("127.0.0.1"),2000,typeConnect.CONNECTED);
-		// 2 Step : create ByteArrayOutputStream
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
 		try {
 			// 3 step : Construct objectOutputStream using the bytearray
