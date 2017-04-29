@@ -1,5 +1,7 @@
 package view;
 
+import interfaces.UserListListener;
+
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -19,15 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controller.ChatViewController;
-import interfaces.ConnectListener;
-import interfaces.UserListListener;
 import model.ConnectedUsers;
 import model.User;
 
@@ -106,7 +104,9 @@ public class ConnectedUsersWindow implements ListSelectionListener {
         
 		connectedUsersList = new JList<User>(listModel);
 		connectedUsersList.setCellRenderer(new DefaultListCellRenderer(){
-			
+
+			private static final long serialVersionUID = 1L;
+
 			public Component getListCellRendererComponent(JList<?> list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {

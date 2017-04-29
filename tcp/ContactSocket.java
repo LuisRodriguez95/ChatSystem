@@ -12,6 +12,7 @@ public class ContactSocket implements Runnable{
 	private final InetAddress address;
 	private final int contactPort;
 	private Message messageToSend;
+	
 	public ContactSocket(InetAddress address,int contactPort){
 		this.address=address;
 		this.contactPort=contactPort;
@@ -44,7 +45,7 @@ public class ContactSocket implements Runnable{
 		}
 		System.out.println("Message envoyé : (ad " + this.address +"port : "+this.contactPort + this.messageToSend.toString());
 	}
-	
+//	
 //	public static void main(String[] args) {
 //		User me=null;
 //		try {
@@ -54,7 +55,14 @@ public class ContactSocket implements Runnable{
 //			e.printStackTrace();
 //		}
 //		Message messtoSend = new Message(me,"Salut comment tu vas  ? ");
-//		ContactSocket sender = new ContactSocket("127.0.0.1", 6000);
+//		InetAddress adres = null;
+//		try {
+//			adres = InetAddress.getLocalHost();
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		ContactSocket sender = new ContactSocket(adres, 6400);
 //		sender.sendMessage(messtoSend);
 //		System.out.println("Message envoyé");
 //	}

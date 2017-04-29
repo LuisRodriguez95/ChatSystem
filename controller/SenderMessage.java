@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 
 import model.Message;
@@ -16,6 +17,7 @@ public class SenderMessage {
 	}
 	
 	public void sendMessage(User contact, String data) {
+		System.out.println("appele pour envoyer message : "+ data + " a l'user : " + contact.toString());
 		ContactSocket sckt = new ContactSocket(contact.getIp(), contact.getPort());
 		Message messageToSend = new Message(this.localUser,data );
 		sckt.sendMessage(messageToSend);
@@ -34,7 +36,7 @@ public class SenderMessage {
 		User remote=null;
 		try {
 			localUser = new User("Denis", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-			remote = new User("Remote", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
+			remote = new User("Remote", InetAddress.getLocalHost(), 6001, typeConnect.CONNECTED);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

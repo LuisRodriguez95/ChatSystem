@@ -11,15 +11,20 @@ public class ChatViewController implements MessageChannel{
 
 	private Communication comproces;
 	public  User localUser; // localUser is the user connected to the ChatSystem 
+	private ListeConversations listeConv;
+	private int localPort;
 	
 	public ChatViewController(User user) {
 
 	  System.out.println("coucou");
   	  ChatView chat = new ChatView(user);
-  	  ListeConversations listeConv = new ListeConversations();
+  	  this.comproces = new Communication(localPort, localUser);
+  	  this.listeConv = new ListeConversations();
   	  final Conversation conversation = listeConv.getConversation(user); 
   	  chat.setListeners(this);
   	  this.localUser = user;
+  	  SenderMessage SM = new SenderMessage(localUser);
+  	  comproces.setSender(SM);
   	  chat.setConvo(conversation);
 	}
 	
@@ -30,6 +35,7 @@ public class ChatViewController implements MessageChannel{
 	}
 
 	public void sendMessage(User contact, String data) {
+		System.out.println("arrive la pour envoyer message : "+ data + " a l'user : " + contact.toString());
 		this.comproces.getSenderMessage().sendMessage(contact, data);
 		
 	}

@@ -1,8 +1,6 @@
 package model;
 
 import javax.swing.DefaultListModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 
 public class Conversation {  

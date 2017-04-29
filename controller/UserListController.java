@@ -1,6 +1,7 @@
 package controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import interfaces.ConnectListener;
 import interfaces.UserListListener;
@@ -14,6 +15,8 @@ public class UserListController implements ConnectListener, UserListListener {
 	public  User localUser; // localUser is the user connected to the ChatSystem 
 	private int portContact=3400; // his contact port 
 // rajouter private int adresseIPdeBroadcast
+	private int upperbound = 30000;
+	private int lowerbound = 2000;
 	private int portBroadcast=6789;
 	/**
 	 * 
@@ -32,6 +35,8 @@ public class UserListController implements ConnectListener, UserListListener {
 		InetAddress ip;
 		try {
 			ip = InetAddress.getLocalHost();
+			Random r = new Random();
+			portContact = r.nextInt(upperbound-lowerbound) + lowerbound;
 			this.localUser= new User(pseudo, ip, portContact, typeConnect.CONNECTED); //LocalUser
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
@@ -51,13 +56,11 @@ public class UserListController implements ConnectListener, UserListListener {
 		
 	}
 
-	@Override
 	public void openChat(User user) {
 	  	  new ChatViewController(localUser);
 		
 	}
 
-	@Override
 	public void setLUPseudo(String pseudo) {
 		this.localUser.setPseudo(pseudo);
 		
