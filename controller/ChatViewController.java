@@ -1,47 +1,51 @@
 package controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import interfaces.MessageChannel;
 import model.Conversation;
 import model.ListeConversations;
 import model.Message;
 import model.User;
+import user.MessageUser.typeConnect;
 import view.ChatView;
 
-public class ChatViewController implements MessageChannel{
+public class ChatViewController {
 
-	private Communication comproces;
-	public  User localUser; // localUser is the user connected to the ChatSystem 
-	private ListeConversations listeConv;
-	private int localPort;
-	
+	private final User localUser;
+	// private final ListeConversations listeConv;
+
 	public ChatViewController(User user) {
-
-	  System.out.println("coucou");
-  	  ChatView chat = new ChatView(user);
-  	  this.comproces = new Communication(localPort, localUser);
-  	  this.listeConv = new ListeConversations();
-  	  final Conversation conversation = listeConv.getConversation(user); 
-  	  chat.setListeners(this);
-  	  this.localUser = user;
-  	  SenderMessage SM = new SenderMessage(localUser);
-  	  comproces.setSender(SM);
-  	  chat.setConvo(conversation);
-	}
-	
-	
-	public void addReceivedMessage(Message message) {
-		// TODO Auto-generated method stub
-		
+		this.localUser = user;
 	}
 
-	public void sendMessage(User contact, String data) {
-		System.out.println("arrive la pour envoyer message : "+ data + " a l'user : " + contact.toString());
-		this.comproces.getSenderMessage().sendMessage(contact, data);
-		
+	public static void main(String[] args) {
+		User localUser=null;
+		User remote=null;
+		try {
+			localUser = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
+			remote = new User("Michel", InetAddress.getLocalHost(), 6001, typeConnect.CONNECTED);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Communication com = new Communication(localUser);
+		com.startServer();
+		ChatView chat = new ChatView(remote);
+		ListeConversations lste= new ListeConversations();
+		chat.setConvo(lste.getConversation(remote));
+		chat.setListeners(com);
+		while (true) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(com.getConvos());
+		}
 	}
 
-	public void addSentMessageToConversation(User contact, Message message) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

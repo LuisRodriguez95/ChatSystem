@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Date;
 
 import user.MessageUser.typeConnect;
-public class User{
+public class User implements Serializable{
 
 	private String pseudo; 
 	private InetAddress ip;
@@ -64,6 +65,15 @@ public class User{
 	public void setMiseAjour() {
 		Date date = new Date();
 		this.miseAjour = date;
+	}
+
+	public String getStatut() {
+		return statut;
+	}
+
+	public void setStatut(String statut) {
+		System.out.println("Changement de pseudo de : "+ this.pseudo +" : " + this.statut + " > " + statut);
+		this.statut = statut;getClass();
 	}
 	
 }

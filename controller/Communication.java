@@ -1,33 +1,33 @@
 package controller;
 
-import model.ListeConversations;
-import model.User;
-import tcp.TCPServer;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-public class Communication { //echangerMessages
+import interfaces.MessageChannel;
+import model.ListeConversations;
+import model.Message;
+import model.User;
+import sun.applet.Main;
+import tcp.TCPServer;
+import user.MessageUser.typeConnect;
+
+public class Communication implements MessageChannel { //echangerMessages
 	private TCPServer server;
 	private SenderMessage sender;
 	private final int localPort;
 	private final ListeConversations convos;
 	private final User localUser;
 
-	public Communication(int localPort, User localUser){
+	public Communication(User localUser){
 		this.localUser=localUser;
-		this.localPort=localPort;
+		this.sender = new SenderMessage();
+		this.localPort=localUser.getPort();
 		this.convos = new ListeConversations();
 	}
 
-	public SenderMessage getSenderMessage(){
-		return this.sender;
-	}
-	
-	public void setSender(SenderMessage SM){
-		this.sender = SM;
-	}
-	
 	public void startServer(){ //jamais appele
 		this.server = new TCPServer(this.localPort);
-		server.setListener(convos);
+		server.setListener(this);
 		new Thread(this.server).start();
 	}
 
@@ -35,41 +35,34 @@ public class Communication { //echangerMessages
 		return this.convos;
 	}
 
-//	public static void main(String[] args) {
-//		if (args[0].contentEquals("Server")){		
-//			User localUser=null;
-//			try {
-//				localUser = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-//			} catch (UnknownHostException e) {
-//				e.printStackTrace();
-//			}
-//			Communication comprocess = new Communication(6000,localUser );
-//			comprocess.startServer();
-//			System.out.println("Démarrage du Process de communication : le serveur attends des messages ");
-//			while(true){
-//				try {
-//					Thread.sleep(2000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				System.out.println(comprocess.getConvos().toString());
-//			}
-//		}
-//		else{
-//			System.out.println("Client Side");
-//			User localUser=null;
-//			User remote=null;
-//			try {
-//				remote = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-//				localUser = new User("Remote", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-//			} catch (UnknownHostException e) {
-//				e.printStackTrace();
-//			}
-//			Communication comprocess = new Communication(6000,localUser );
-//			comprocess.sender.sendMessage(remote, "Tu me reçois ?  ça va ? ");
-//		}
-//
-//	}
-}
+	public void addReceivedMessage(Message message) {
+		this.convos.addReceivedMessage(message);		
+	}
 
+	public void sendMessage(User contact, String data) {
+		Message sms = new Message(this.localUser, data);
+		this.sender.sendMessage(contact,sms);
+		this.convos.addSentMessageToConversation(contact,sms);
+	}
+
+	public static void main(String[] args) {
+		User localUser=null;
+		try {
+			localUser = new User("Michel", InetAddress.getLocalHost(), 6001, typeConnect.CONNECTED);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
+		Communication com = new Communication(localUser);
+		com.startServer();
+
+		while(true){
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(com.getConvos().toString());
+		}
+	}
+}

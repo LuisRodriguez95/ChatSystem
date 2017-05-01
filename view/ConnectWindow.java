@@ -47,10 +47,9 @@ public class ConnectWindow extends Observable {
 				if (PasswordDTB.getHmap().containsKey(user)){
 					String pwd = PasswordDTB.getHmap().get(user);
 					if (pwd.equals(textPwd.getText())) {
-						new ConnectedUsersWindow();
+						frame.dispose();
 						listener.setLocalUser(user);
 						listener.startChat();
-						frame.dispose();
 					} else {
 						System.out.println("surprise motherfucker " + user
 								+ " mauvais user " + " le bon pwd est : " + pwd);
@@ -58,9 +57,9 @@ public class ConnectWindow extends Observable {
 				}
 				else{
 					PasswordDTB.addUser(user, pass);
+					frame.dispose();
 					listener.setLocalUser(user);
 					listener.startChat();
-					frame.dispose();
 				}
 
 			}
@@ -98,26 +97,6 @@ public class ConnectWindow extends Observable {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 	}
-/*
-	public static void main(String[] args) {
-		new PasswordDTB();
-		ConnectWindow f = new ConnectWindow();
-		f.connectListener = new ConnectListener() {
-
-			@Override
-			public void startChatProcess(String pseudo) {
-				System.out.println("start chat process with pseudo " + pseudo);
-				
-			}
-
-			@Override
-			public void sendMessage(String message) {
-				System.out.println("sendMessage " + message);
-			}
-		};
-
-	}
-*/
 	public void setConnectListener(CanalVuesController ct) {
 		this.listener = ct;
 	}

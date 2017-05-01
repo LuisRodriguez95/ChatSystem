@@ -1,6 +1,6 @@
 package view;
 
-import interfaces.UserListListener;
+import interfaces.CanalVuesController;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -37,9 +37,9 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	 /** a button to perform an action: e.g. say hello (TBD) */
 	 public JButton buttonChat,buttonStatus,buttonDisconnect,buttonVide;
 	 private DefaultListModel<User> listModel ;
-	 private UserListListener listener;
+	 private CanalVuesController listener;
 	 
-	 public void setListener(UserListListener listener) {
+	 public void setListener(CanalVuesController listener) {
 		this.listener = listener;
 	}
 
@@ -63,7 +63,7 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 			
 			public void actionPerformed(ActionEvent e) {
 				String status = JOptionPane.showInputDialog(buttonChat,"Enter new status", null);
-				ConnectedUsersWindow.this.listener.setLUPseudo(status);
+				ConnectedUsersWindow.this.listener.setLocalStatut(status);
 			}
 		});
 		
@@ -135,8 +135,9 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 			
 			public void actionPerformed(ActionEvent e) {
 				User user = connectedUsersList.getSelectedValue();
+				
 				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
-				listener.openChat(user);
+				listener.openChatView(user); 
 			}
 		});
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -167,16 +168,17 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	    	//System.out.println("sdf");
 	    }
 	}
-	 /*
-	 public static void main(String[] args) {
-		    new PasswordDTB();
-		    ConnectedUsersWindow f = new ConnectedUsersWindow();
-		  }
-*/
+	 
+	
+
 	public void valueChanged(ListSelectionEvent arg0) {
 		//System.out.println("osef");
 		
 	}
+	
+	 public static void main(String[] args) {
+		    ConnectedUsersWindow f = new ConnectedUsersWindow();
+		  }
 
 
 }

@@ -43,7 +43,7 @@ public class ChatView implements ListSelectionListener{
 
 	private MessageChannel listeners;
 	
-	private Conversation convo;
+	private Conversation convo; // PASSER PAR UNE INTERFACE
 
 	public void setConvo(Conversation convo) {
 		this.convo = convo;
@@ -167,10 +167,8 @@ public class ChatView implements ListSelectionListener{
 								e1.printStackTrace();
 							}
 						}
+						System.out.println("Trying to send a message to " + user);
 						ChatView.this.listeners.sendMessage(user, text);
-						Message mess = new Message(user, text);
-						ChatView.this.convo.addMessage(mess);
-						
 					}
 				});
                 

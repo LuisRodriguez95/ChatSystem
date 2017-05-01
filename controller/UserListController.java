@@ -7,6 +7,7 @@ import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
 import user.MessageUser.typeConnect;
+import view.ConnectedUsersWindow;
 
 public class UserListController  {
 	private final User localUser; // localUser is the user connected to the ChatSystem 
@@ -38,23 +39,25 @@ public UserListController(User localUser) {
 		new Thread(alerter).start();
 		new Thread(listeningSocket).start();
 	}
-}
-//	
-//	/**
-//	 * Methode permettant de tester le bon fonctionnement de cette classe, qui permet de 
-//	 *  - Savoir quels utilisteurs sont connectés
-//	 *  - Alerter les autres utilisateurs qui sont connectés
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//		User me=null;
-//		try {
-//			me = new User("Denis", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		UserListController ctrl = new UserListController(me);
-//		ctrl.startChatProcess();
+	
+	
+	/**
+	 * Methode permettant de tester le bon fonctionnement de cette classe, qui permet de 
+	 *  - Savoir quels utilisteurs sont connectés
+	 *  - Alerter les autres utilisateurs qui sont connectés
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		User me=null;
+		try {
+			me = new User("Denis", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UserListController ctrl = new UserListController(me);
+		ctrl.startChatProcess();
+		ConnectedUsersWindow cuw = new ConnectedUsersWindow();
+		
 //		while (true) {
 //			try {
 //				Thread.sleep(2000);
@@ -64,5 +67,8 @@ public UserListController(User localUser) {
 //			}
 //			System.out.println(ConnectedUsers.getInstance());
 //		}
-//	}
-//	
+	}
+	
+}
+	
+
