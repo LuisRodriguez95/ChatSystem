@@ -1,12 +1,11 @@
 package controller;
 
+import interfaces.CanalVuesController;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-import interfaces.CanalVuesController;
-import model.ConnectedUsers;
-import model.ListeConversations;
 import model.User;
 import user.MessageUser.typeConnect;
 import view.ChatView;
@@ -15,7 +14,6 @@ import view.ConnectedUsersWindow;
 
 public class Controller implements CanalVuesController{
 	private User localUser;
-
 	private  InetAddress ipContact; // FINAL ! 
 	private final int portContact;
 	private Communication comProcess;
@@ -44,7 +42,9 @@ public class Controller implements CanalVuesController{
 		userListctrl.startChatProcess();
 		this.comProcess = new Communication(this.localUser);
 		this.comProcess.startServer();
+
 		ConnectedUsersWindow cUW = new ConnectedUsersWindow(localUser);
+
 		cUW.setListener(this);  
 	}
 
@@ -55,7 +55,6 @@ public class Controller implements CanalVuesController{
 	public void setLocalStatut(String statut) {
 		this.localUser.setStatut(statut);
 	}
-
 	
 	public static void main(String[] args) {
 		Controller ct = new Controller();
@@ -67,6 +66,7 @@ public class Controller implements CanalVuesController{
 		chat.setConvo(comProcess.getConvos().getConversation(user));
 		chat.setListeners(comProcess);
 		chat.updatechatView();
+
 		// il ne faut pas l'ouvrir à chaque fois, il faut la get...
 	}
 	

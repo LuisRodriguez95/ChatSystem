@@ -1,8 +1,6 @@
 package controller;
 import java.net.InetAddress;
 
-import interfaces.CanalVuesController;
-import model.ConnectedUsers;
 import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
@@ -56,17 +54,8 @@ public UserListController(User localUser) {
 		}
 		UserListController ctrl = new UserListController(me);
 		ctrl.startChatProcess();
-		ConnectedUsersWindow cuw = new ConnectedUsersWindow(me);
-		
-//		while (true) {
-//			try {
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			System.out.println(ConnectedUsers.getInstance());
-//		}
+		new ConnectedUsersWindow(me);
+
 	}
 	
 }

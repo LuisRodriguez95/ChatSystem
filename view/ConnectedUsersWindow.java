@@ -1,7 +1,6 @@
 package view;
 
 import interfaces.CanalVuesController;
-import interfaces.UserListListener;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -29,10 +28,9 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import user.MessageUser.typeConnect;
-
 import model.ConnectedUsers;
 import model.User;
+import user.MessageUser.typeConnect;
 
 
 public class ConnectedUsersWindow implements ListSelectionListener {
@@ -185,13 +183,13 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	
 	 public static void main(String[] args) {
 		 User user = null;
-		try {
-			user = new User("luis", InetAddress.getLocalHost(), 5200, typeConnect.CONNECTED);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		    ConnectedUsersWindow f = new ConnectedUsersWindow(user);
+			try {
+				user = new User("luis", InetAddress.getLocalHost(), 5200, typeConnect.CONNECTED);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		    new ConnectedUsersWindow(user);
+
 		  }
 
 

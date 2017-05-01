@@ -1,5 +1,7 @@
 package view;
 
+import interfaces.MessageChannel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,14 +31,13 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import interfaces.MessageChannel;
 import model.Conversation;
 import model.Message;
 import model.User;
 
 public class ChatView implements ListSelectionListener{
 	private User user;
-	
+	private JPanel panel;
 	private JTextPane textArea;
 	private SimpleAttributeSet local;
 	private SimpleAttributeSet remote;
@@ -51,9 +52,11 @@ public class ChatView implements ListSelectionListener{
 	private MessageChannel listeners;
 	
 	private Conversation convo; // PASSER PAR UNE INTERFACE
+
 	
 	public void setConvo(Conversation convo) {
 		this.convo = convo;
+		panel = new JPanel();
 		messages = convo.getMessageList();
 		remote = new SimpleAttributeSet();
         textArea = new JTextPane();
@@ -61,6 +64,7 @@ public class ChatView implements ListSelectionListener{
         local = new SimpleAttributeSet();
         textA = textArea.getStyledDocument();
 	}
+
 
 	public void createFrame(final User user)
     {
@@ -78,23 +82,24 @@ public class ChatView implements ListSelectionListener{
                 } catch (Exception e) {
                    e.printStackTrace();
                 }
-                JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 panel.setOpaque(true);
-                //textArea.setWrapStyleWord(true);
+
                 textArea.setPreferredSize(new Dimension(400, 400));
                 
                 StyleConstants.setAlignment(local, StyleConstants.ALIGN_LEFT);
                 StyleConstants.setForeground(local, Color.black);
 
+                textArea.setPreferredSize(new Dimension(400, 400));
                 
+                StyleConstants.setAlignment(local, StyleConstants.ALIGN_LEFT);
+                StyleConstants.setForeground(local, Color.black);
+
                 StyleConstants.setAlignment(remote, StyleConstants.ALIGN_RIGHT);
                 StyleConstants.setForeground(remote, Color.blue);
                 StyleConstants.setLeftIndent(remote, 15);
                 StyleConstants.setBackground(remote, Color.white);
 
-                
-                
                 textArea.setEditable(false);
                 textArea.setFont(Font.getFont(Font.SANS_SERIF));
                 JScrollPane scroller = new JScrollPane(textArea);
@@ -103,10 +108,6 @@ public class ChatView implements ListSelectionListener{
                 JPanel inputpanel = new JPanel();
                 inputpanel.setLayout(new FlowLayout());
                 final JTextField input = new JTextField(20);
-                
-                //textArea.setContentType("text/html");
-                
-                
                 
                 messages.addListDataListener(new ListDataListener() {
 					
@@ -121,6 +122,7 @@ public class ChatView implements ListSelectionListener{
 		                textArea.setText("");
 						updatechatView();
 												
+
 					}
 					
 
@@ -209,11 +211,5 @@ public class ChatView implements ListSelectionListener{
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		Conversation convo = new Conversation();
-//		ChatView chat = new ChatView();
-//		//chat.addConversationTolisten(convo);
-//		//convo.addMessage(message)
-//			
-//	}
+
 }

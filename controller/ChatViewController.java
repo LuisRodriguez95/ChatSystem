@@ -3,10 +3,7 @@ package controller;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import interfaces.MessageChannel;
-import model.Conversation;
 import model.ListeConversations;
-import model.Message;
 import model.User;
 import user.MessageUser.typeConnect;
 import view.ChatView;
