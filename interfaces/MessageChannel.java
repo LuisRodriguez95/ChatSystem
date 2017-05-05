@@ -9,5 +9,6 @@ public interface MessageChannel {
 	
 	public void sendMessage(User contact, String data);
 	//Quand l'utilisateur veut envoyer un message à un contact, il passe par cette interface
-
+	
+	public void sendFile(User contact);
 }

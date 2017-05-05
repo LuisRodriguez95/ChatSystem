@@ -8,8 +8,9 @@ import user.MessageUser.typeConnect;
 public class User implements Serializable{
 
 	private String pseudo; 
-	private InetAddress ip;
-	private int port; 
+	private final InetAddress ip;
+	private final int port; 
+//	private final int portFile;
 	private typeConnect etat;
 	private Date miseAjour;
 	private String statut;
@@ -20,6 +21,7 @@ public class User implements Serializable{
 		this.port = port;
 		this.etat = etat;
 		this.miseAjour = new Date();
+	//this.portFile = portFile;
 	}
 	
 	public String toString() {

@@ -2,11 +2,14 @@ package controller;
 
 import interfaces.CanalVuesController;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
 import model.User;
+import tcp.FileClient;
+import tcp.FileServer;
 import user.MessageUser.typeConnect;
 import view.ChatView;
 import view.ConnectWindow;
@@ -42,10 +45,9 @@ public class Controller implements CanalVuesController{
 		userListctrl.startChatProcess();
 		this.comProcess = new Communication(this.localUser);
 		this.comProcess.startServer();
-
+		
 		ConnectedUsersWindow cUW = new ConnectedUsersWindow(localUser);
-
-		cUW.setListener(this);  
+		cUW.setListener(this); 
 	}
 
 	public void setLocalUser(String pseudo) {
@@ -66,8 +68,7 @@ public class Controller implements CanalVuesController{
 		chat.setConvo(comProcess.getConvos().getConversation(user));
 		chat.setListeners(comProcess);
 		chat.updatechatView();
-
-		// il ne faut pas l'ouvrir à chaque fois, il faut la get...
 	}
+
 	
 }

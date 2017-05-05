@@ -45,18 +45,18 @@ public UserListController(User localUser) {
 	 *  - Alerter les autres utilisateurs qui sont connectés
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		User me=null;
-		try {
-			me = new User("Denis", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		UserListController ctrl = new UserListController(me);
-		ctrl.startChatProcess();
-		new ConnectedUsersWindow(me);
-
-	}
+//	public static void main(String[] args) {
+//		User me=null;
+//		try {
+//			me = new User("Denis", InetAddress.getLocalHost(), 6000,6002, typeConnect.CONNECTED);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		UserListController ctrl = new UserListController(me);
+//		ctrl.startChatProcess();
+//		new ConnectedUsersWindow(me);
+//
+//	}
 	
 }
 	
