@@ -5,7 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import model.Message;
+import communication.Message;
+
 
 public class ContactSocket implements Runnable{
 	private Socket senderSocket;

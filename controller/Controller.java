@@ -17,17 +17,18 @@ public class Controller implements CanalVuesController{
 	private User localUser;
 	private  InetAddress ipContact; // FINAL ! 
 	private final int portContact;
+	private final int portFile;
 	private Communication comProcess;
 	
 	public Controller(){
 		try {
 			this.ipContact = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		Random r = new Random();
 		this.portContact = r.nextInt(30000-6000) + 6000;
+		this.portFile = r.nextInt(30000-6000) + 6000;
 	}
 	
 	/**
@@ -50,6 +51,7 @@ public class Controller implements CanalVuesController{
 
 	public void setLocalUser(String pseudo) {
 		this.localUser= new User(pseudo,this.ipContact,this.portContact, typeConnect.CONNECTED);
+		this.localUser.setPortFile(portFile);
 	}
 
 	public void setLocalStatut(String statut) {

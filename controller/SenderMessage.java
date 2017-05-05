@@ -1,9 +1,8 @@
 package controller;
 
 
-import model.Message;
 import tcp.ContactSocket;
-
+import communication.Message;
 import communication.User;
 
 public class SenderMessage {

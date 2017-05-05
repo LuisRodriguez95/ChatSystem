@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import model.ListeConversations;
 
 /**
  * TCPserver est le serveur d'écoute pour les messages envoyés par les autres utilisateurs

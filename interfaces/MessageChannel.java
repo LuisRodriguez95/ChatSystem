@@ -1,7 +1,6 @@
 package interfaces;
 
-import model.Message;
-
+import communication.Message;
 import communication.User;
 
 public interface MessageChannel {

@@ -30,10 +30,10 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import model.Conversation;
-import model.Message;
-
+import communication.Message;
 import communication.User;
 
 public class ChatView implements ListSelectionListener{
@@ -52,11 +52,8 @@ public class ChatView implements ListSelectionListener{
 
 	private MessageChannel listeners;
 	
-	private Conversation convo; // PASSER PAR UNE INTERFACE
-
 	
 	public void setConvo(Conversation convo) {
-		this.convo = convo;
 		panel = new JPanel();
 		messages = convo.getMessageList();
 		remote = new SimpleAttributeSet();
@@ -165,8 +162,7 @@ public class ChatView implements ListSelectionListener{
                 buttonSendFile.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
-						ChatView.this.listeners.sendFile(user);
-						
+						ChatView.this.listeners.sendFile(user);		
 					}
 				});
                 button.setDefaultCapable(true);
@@ -198,11 +194,12 @@ public class ChatView implements ListSelectionListener{
 	
 	public void updatechatView(){
 		for (int i = 0;i<messages.getSize();i++){
-			System.out.println("expediteur du message : "+ messages.get(i).getExpediteur() + " et on est sur le chat de : "+ user);
-			if (messages.get(i).getExpediteur().equals(user)){
+			System.out.println("expediteur du message : "+ messages.get(i).getSender() + " et on est sur le chat de : "+ user);
+			if (messages.get(i).getSender().equals(user)){
 				try {
+					Message message = messages.get(i);
 	                textArea.setParagraphAttributes(local, true);
-	                textA.insertString(textA.getLength(), messages.get(i).getData() + "\n", remote);
+	                textA.insertString(textA.getLength(), message.getDate().getHours()+"h"+ message.getDate().getMinutes() +" : "+ message.getData() + "\n", remote);
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -210,8 +207,9 @@ public class ChatView implements ListSelectionListener{
 			}
 			else{
 				try {
+					Message message = messages.get(i);
 	                textArea.setParagraphAttributes(remote, true);
-					textA.insertString(textA.getLength(), messages.get(i).getData() + "\n", local);
+					textA.insertString(textA.getLength(),message.getDate().getHours()+"h"+ message.getDate().getMinutes() +" : "+ message.getData() + "\n", local);
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

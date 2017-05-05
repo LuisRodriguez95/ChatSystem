@@ -5,11 +5,10 @@ import interfaces.MessageChannel;
 import java.io.FileNotFoundException;
 
 import model.ListeConversations;
-import model.Message;
 import tcp.FileClient;
 import tcp.FileServer;
 import tcp.TCPServer;
-
+import communication.Message;
 import communication.User;
 
 public class Communication implements MessageChannel { //echangerMessages
@@ -20,15 +19,15 @@ public class Communication implements MessageChannel { //echangerMessages
 	private final communication.User localUser;
 	private final FileServer fileServer;
 	
-	public Communication(communication.User localUser2){
-		this.localUser=localUser2;
+	public Communication(communication.User localUser){
+		this.localUser=localUser;
 		this.sender = new SenderMessage();
-		this.localPort=localUser2.getPort();
+		this.localPort=localUser.getPort();
 		this.convos = new ListeConversations();
-		this.fileServer = new FileServer(9002);
+		this.fileServer = new FileServer(this.localUser.getPortFile());
 	}
 
-	public void startServer(){ //jamais appele
+	public void startServer(){ 
 		this.server = new TCPServer(this.localPort);
 		server.setListener(this);
 		new Thread(this.server).start();
@@ -44,7 +43,7 @@ public class Communication implements MessageChannel { //echangerMessages
 	}
 
 	public void sendMessage(User contact, String data) {
-		Message sms = new Message(this.localUser, data);
+		Message sms = new Message(data,this.localUser);
 		this.sender.sendMessage(contact,sms);
 		this.convos.addSentMessageToConversation(contact,sms);
 	}
@@ -58,8 +57,8 @@ public class Communication implements MessageChannel { //echangerMessages
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("File sended to "+ contact.getPseudo() + ":" + filepath);
-		FileClient fClient = new FileClient(contact.getIP(), 8000);
+		System.out.println("File sended to "+ contact.getPseudo() + " :" + filepath + "sur son port " +contact.getPortFile());
+		FileClient fClient = new FileClient(contact.getIP(), contact.getPortFile());
 		fClient.sendfile(filepath);
 	}
 //

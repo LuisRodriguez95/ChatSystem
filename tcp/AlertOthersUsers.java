@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 
 import communication.User;
+import communication.User.typeConnect;
 
 
 public class AlertOthersUsers implements Runnable {
@@ -37,7 +38,7 @@ public class AlertOthersUsers implements Runnable {
 			e.printStackTrace();
 
 		}
-		this.objToSend = new User(localUser.getPseudo(), localUser.getIP(), localUser.getPort(), localUser.getEtat());
+		this.objToSend = localUser;
 		this.portMulticast=portMulticast;
 	}
 
@@ -60,17 +61,32 @@ public class AlertOthersUsers implements Runnable {
 		}
 	}
 	
+	public void startAlerter(){
+		new Thread(this).start();
+	}
 
 
-public void run() {
-	while(true){
-		try {
-			Thread.sleep(2000);
-			this.send(this.objToSend);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void run() {
+		while(true){
+			try {
+				Thread.sleep(2000);
+				this.send(this.objToSend);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-}
+	
+	public static void main(String[] args) {
+		InetAddress ip = null;
+		try {
+			ip=InetAddress.getByName("228.5.6.7");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		User monuser= new User("Michel", ip, 8000, typeConnect.CONNECTED);
+		AlertOthersUsers alertOthersUsers = new AlertOthersUsers(ip, 6000, monuser);
+		alertOthersUsers.startAlerter();
+	}
 }

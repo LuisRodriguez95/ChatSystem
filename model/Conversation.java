@@ -2,6 +2,8 @@ package model;
 
 import javax.swing.DefaultListModel;
 
+import communication.Message;
+
 
 public class Conversation {  
 

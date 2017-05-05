@@ -1,16 +1,11 @@
 package controller;
 
-import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import tcp.FileClient;
 

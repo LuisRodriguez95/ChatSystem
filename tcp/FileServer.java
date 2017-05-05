@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import interfaces.MessageChannel;
 
 public class FileServer implements Runnable {
 	private final ServerSocket serverSocket; 
@@ -31,7 +30,6 @@ public class FileServer implements Runnable {
 			InputStream in = null;
 			OutputStream out = null;
 			Socket socket=null;
-
 			try {
 				socket = serverSocket.accept();
 			} catch (IOException ex) {

@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import model.Message;
+import communication.Message;
+
 
 public class CanalReception implements Runnable{
 	private MessageChannel listener;

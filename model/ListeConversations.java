@@ -3,6 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import communication.Message;
 import communication.User;
 
 public class ListeConversations {
@@ -25,7 +26,7 @@ public class ListeConversations {
 	}
 
 	public void addReceivedMessage(Message message) {
-		Conversation conv = this.getConversation(message.getExpediteur());
+		Conversation conv = this.getConversation(message.getSender());
 		conv.addMessage(message);
 
 	}
