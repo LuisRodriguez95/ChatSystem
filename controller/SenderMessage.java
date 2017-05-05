@@ -20,21 +20,21 @@ public class SenderMessage {
 		sckt.sendMessage(message);
 	}
 //
-	public static void main(String[] args) {
-		User localUser=null;
-		User remote=null;
-		try {
-			localUser = new User("Michel", InetAddress.getLocalHost(), 6001, typeConnect.CONNECTED);
-			remote = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		SenderMessage sdr = new SenderMessage();
-		Message mess = new Message(localUser, "Salut bitch");
-		sdr.sendMessage(remote,mess );
-		
-	}
-		
+//	public static void main(String[] args) {
+//		User localUser=null;
+//		User remote=null;
+//		try {
+//			localUser = new User("Michel", InetAddress.getLocalHost(), 6001, 6002,typeConnect.CONNECTED);
+//			remote = new User("Thibaut", InetAddress.getLocalHost(), 6000,6002, typeConnect.CONNECTED);
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		SenderMessage sdr = new SenderMessage();
+//		Message mess = new Message(localUser, "Salut bitch");
+//		sdr.sendMessage(remote,mess );
+//		
+//	}
+//		
 
 }

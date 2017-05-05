@@ -10,8 +10,8 @@ import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
 import model.ConnectedUsers;
-import model.User;
 import user.MessageUser;
+import model.User;
 import controller.UpdateConnectedUsers;
 
 

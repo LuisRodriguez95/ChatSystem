@@ -160,13 +160,21 @@ public class ChatView implements ListSelectionListener{
 						ChatView.this.listeners.sendMessage(user, text);
 					}
 				});
-                
+                JButton buttonSendFile = new JButton("Send a file");
+                buttonSendFile.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						ChatView.this.listeners.sendFile(user);
+						
+					}
+				});
                 button.setDefaultCapable(true);
                 DefaultCaret caret = (DefaultCaret) textArea.getCaret();
                 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
                 panel.add(scroller);
                 inputpanel.add(input);
                 inputpanel.add(button);
+                inputpanel.add(buttonSendFile);
                 panel.add(inputpanel);
                 frame.getContentPane().add(BorderLayout.CENTER, panel);
                 frame.pack();
