@@ -7,10 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.UnknownHostException;
 
-import model.User;
-import user.MessageUser;
+import communication.User;
 
 
 public class AlertOthersUsers implements Runnable {
@@ -39,7 +37,7 @@ public class AlertOthersUsers implements Runnable {
 			e.printStackTrace();
 
 		}
-		this.objToSend = new MessageUser(localUser.getPseudo(), localUser.getIp(), localUser.getPort(), localUser.getEtat());
+		this.objToSend = new User(localUser.getPseudo(), localUser.getIP(), localUser.getPort(), localUser.getEtat());
 		this.portMulticast=portMulticast;
 	}
 

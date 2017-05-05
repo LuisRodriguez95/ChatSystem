@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 	private final String data;
-	private final User expediteur;
+	private final communication.User expediteur;
 	
-	public Message(User expediteur, String data){
+	public Message(communication.User localUser, String data){
 		this.data=data;
-		this.expediteur=expediteur;
+		this.expediteur=localUser;
 	}
 	
 	public String toString(){
@@ -19,7 +19,7 @@ public class Message implements Serializable {
 		return data;
 	}
 	
-	public User getExpediteur() {
+	public communication.User getExpediteur() {
 		return expediteur;
 	}
 }

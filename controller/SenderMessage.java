@@ -1,13 +1,10 @@
 package controller;
 
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import model.Message;
-import model.User;
 import tcp.ContactSocket;
-import user.MessageUser.typeConnect;
+
+import communication.User;
 
 public class SenderMessage {
 	
@@ -16,7 +13,7 @@ public class SenderMessage {
 	
 	public void sendMessage(User contact,Message message) {
 		//System.out.println("appele pour envoyer message : "+ data + " a l'user : " + contact.toString());
-		ContactSocket sckt = new ContactSocket(contact.getIp(), contact.getPort());
+		ContactSocket sckt = new ContactSocket(contact.getIP(), contact.getPort());
 		sckt.sendMessage(message);
 	}
 //

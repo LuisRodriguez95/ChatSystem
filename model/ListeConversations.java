@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import communication.User;
+
 public class ListeConversations {
 
 	private HashMap<User,Conversation> listeConversations = new HashMap<User,Conversation>();

@@ -1,11 +1,10 @@
 package controller;
 import java.net.InetAddress;
 
-import model.User;
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
-import user.MessageUser.typeConnect;
-import view.ConnectedUsersWindow;
+
+import communication.User;
 
 public class UserListController  {
 	private final User localUser; // localUser is the user connected to the ChatSystem 

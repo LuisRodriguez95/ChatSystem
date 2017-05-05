@@ -7,11 +7,13 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.UnknownHostException;
+import java.util.Date;
 
 import model.ConnectedUsers;
-import user.MessageUser;
-import model.User;
+import model.UserDate;
+
+import communication.User;
+
 import controller.UpdateConnectedUsers;
 
 
@@ -54,7 +56,7 @@ public class CheckConnectedUsers implements Runnable{
 			ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
 			try {  //receivedObject
 				Object recvUser = is.readObject();
-				//System.out.println("New User : " + recvUser.toString());
+				System.out.println("New User : " + recvUser.toString());
 				updateModel(recvUser);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -70,14 +72,16 @@ public class CheckConnectedUsers implements Runnable{
 	 * @param recvObject of type MessageUser
 	 */
 	public void updateModel(Object recvObject){
-		MessageUser msgUser = (MessageUser)recvObject;// Mieux vaudrait faire avec le hashcode de l'objet
+		User msgUser = (User) recvObject;// Mieux vaudrait faire avec le hashcode de l'objet
 		User user = new User(msgUser.getPseudo(), msgUser.getIP(), msgUser.getPort(),msgUser.getEtat());
+		UserDate UD = new UserDate(user, new Date());
 		if (!user.equals(this.localUser) ){
-			if (!ConnectedUsers.getInstance().contains(user)){ // Si l'utiliasteur est nouveau
-				UpdateConnectedUsers.getInstance().updateUser(user);
+			if (!ConnectedUsers.getInstance().containsUser(user)){ // Si l'utiliasteur est nouveau
+				UpdateConnectedUsers.getInstance().updateUser(UD);
 			}
 			else{	// S'il existe deja on met a jour sa date
-				User theUser = ConnectedUsers.getInstance().getUser(user);
+				System.out.println("me la juego a que no se pasa por aqui");
+				UserDate theUser = ConnectedUsers.getInstance().getUser(UD);
 				UpdateConnectedUsers.getInstance().updateDate(theUser);
 			}
 		}

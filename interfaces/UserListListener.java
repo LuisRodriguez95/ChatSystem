@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.User;
+import communication.User;
 
 public interface UserListListener {
 	public void openChat(User user);

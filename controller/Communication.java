@@ -1,36 +1,31 @@
 package controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import com.sun.xml.internal.ws.developer.StreamingAttachmentFeature;
-
 import interfaces.MessageChannel;
+
+import java.io.FileNotFoundException;
+
 import model.ListeConversations;
 import model.Message;
-import model.User;
-import sun.applet.Main;
 import tcp.FileClient;
 import tcp.FileServer;
 import tcp.TCPServer;
-import user.MessageUser.typeConnect;
+
+import communication.User;
 
 public class Communication implements MessageChannel { //echangerMessages
 	private TCPServer server;
 	private SenderMessage sender;
 	private final int localPort;
 	private final ListeConversations convos;
-	private final User localUser;
+	private final communication.User localUser;
 	private final FileServer fileServer;
 	
-	public Communication(User localUser){
-		this.localUser=localUser;
+	public Communication(communication.User localUser2){
+		this.localUser=localUser2;
 		this.sender = new SenderMessage();
-		this.localPort=localUser.getPort();
+		this.localPort=localUser2.getPort();
 		this.convos = new ListeConversations();
-		this.fileServer = new FileServer(9000);
+		this.fileServer = new FileServer(9002);
 	}
 
 	public void startServer(){ //jamais appele
@@ -64,7 +59,7 @@ public class Communication implements MessageChannel { //echangerMessages
 			e.printStackTrace();
 		}
 		System.out.println("File sended to "+ contact.getPseudo() + ":" + filepath);
-		FileClient fClient = new FileClient(contact.getIp(), 8000);
+		FileClient fClient = new FileClient(contact.getIP(), 8000);
 		fClient.sendfile(filepath);
 	}
 //

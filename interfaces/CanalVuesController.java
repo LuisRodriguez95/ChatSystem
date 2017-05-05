@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.User;
+import communication.User;
 
 public interface CanalVuesController {
 	public void startChat();

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.ConnectedUsers;
-import model.User;
-import user.MessageUser.typeConnect;
+import model.UserDate;
+
+import communication.User;
+import communication.User.typeConnect;
 
 
 /**
@@ -43,8 +45,8 @@ public class UpdateConnectedUsers implements Runnable {
 	 * <ul>
 	 * @param user
 	 */
-	public void updateUser(User user){
-		if(user.getEtat()==typeConnect.CONNECTED){		
+	public void updateUser(UserDate user){
+		if(user.getUser().getEtat()==typeConnect.CONNECTED){
 			users.getListUsers().addElement(user);
 		}
 		else {
@@ -52,8 +54,8 @@ public class UpdateConnectedUsers implements Runnable {
 		}
 	}
 	
-	public void updateDate(User user){
-		user.setMiseAjour();
+	public void updateDate(UserDate user){
+		user.setDate(new Date());
 	}
 	
 	/**
@@ -61,17 +63,17 @@ public class UpdateConnectedUsers implements Runnable {
 	 */
 	public void detectDeconnection(){
 	Date now = new Date();
-	ArrayList<User> usersToRemove = new ArrayList<User>();
+	ArrayList<UserDate> usersToRemove = new ArrayList<UserDate>();
 	if (!this.users.getListUsers().isEmpty()) {  // Si la liste d'users n'est pas vide
 		for (int i = 0; i < this.users.getListUsers().getSize() ; i++) {
-			User user = this.users.getListUsers().elementAt(i);
-			if (now.getTime() - user.getMiseAjour().getTime() > this.timerLost) {
+			UserDate user = this.users.getListUsers().elementAt(i);
+			if (now.getTime() - user.getDate().getTime() > this.timerLost) {
 				System.out.println("User déconnecté: "+ user.toString());
 				usersToRemove.add(user);
 			}
 		}
 		// usersToRemove.forEach(item->this.setUsers.remove(item));
-		for(User user : usersToRemove){
+		for(UserDate user : usersToRemove){
 			this.users.getListUsers().removeElement(user);
 		}
 	}

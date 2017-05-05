@@ -33,7 +33,8 @@ import javax.swing.text.StyledDocument;
 
 import model.Conversation;
 import model.Message;
-import model.User;
+
+import communication.User;
 
 public class ChatView implements ListSelectionListener{
 	private User user;

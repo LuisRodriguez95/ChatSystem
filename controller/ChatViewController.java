@@ -4,9 +4,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import model.ListeConversations;
-import model.User;
-import user.MessageUser.typeConnect;
 import view.ChatView;
+
+import communication.User;
+import communication.User.typeConnect;
 
 public class ChatViewController {
 
@@ -21,7 +22,7 @@ public class ChatViewController {
 		User localUser=null;
 		User remote=null;
 		try {
-			localUser = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
+			localUser = new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED	);	//new User("Thibaut", InetAddress.getLocalHost(), 6000, typeConnect.CONNECTED);
 			remote = new User("Michel", InetAddress.getLocalHost(), 6001, typeConnect.CONNECTED);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -43,6 +44,7 @@ public class ChatViewController {
 			System.out.println(com.getConvos());
 		}
 	}
+	
 
 
 }

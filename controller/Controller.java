@@ -2,18 +2,16 @@ package controller;
 
 import interfaces.CanalVuesController;
 
-import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-import model.User;
-import tcp.FileClient;
-import tcp.FileServer;
-import user.MessageUser.typeConnect;
 import view.ChatView;
 import view.ConnectWindow;
 import view.ConnectedUsersWindow;
+
+import communication.User;
+import communication.User.typeConnect;
 
 public class Controller implements CanalVuesController{
 	private User localUser;

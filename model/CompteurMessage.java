@@ -2,6 +2,8 @@ package model;
 
 import java.util.HashMap;
 
+import communication.User;
+
 public class CompteurMessage {
 	private HashMap<User, Integer> messages = new HashMap<User, Integer>();
 	public CompteurMessage() {

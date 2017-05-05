@@ -29,17 +29,19 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.ConnectedUsers;
-import model.User;
-import user.MessageUser.typeConnect;
+import model.UserDate;
+
+import communication.User;
+import communication.User.typeConnect;
 
 
 public class ConnectedUsersWindow implements ListSelectionListener {
 	/** a label for the name */
 	 JFrame frame = new JFrame();
-	 private JList<User> connectedUsersList;
+	 private JList<UserDate> connectedUsersList;
 	 /** a button to perform an action: e.g. say hello (TBD) */
 	 public JButton buttonChat,buttonStatus,buttonDisconnect,buttonVide;
-	 private DefaultListModel<User> listModel ;
+	 private DefaultListModel<UserDate> listModel ;
 	 private CanalVuesController listener;
 	 private User user;
 	 public void setListener(CanalVuesController listener) {
@@ -102,12 +104,12 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	    c.gridy = 0;
 	    pane.add(buttonVide, c);
 
-        listModel = new DefaultListModel<User>();
+        listModel = new DefaultListModel<UserDate>();
         listModel = ConnectedUsers.getInstance().getListUsers();
         listModel.addListDataListener(new MyListDataListener());
     
         
-		connectedUsersList = new JList<User>(listModel);
+		connectedUsersList = new JList<UserDate>(listModel);
 		connectedUsersList.setCellRenderer(new DefaultListCellRenderer(){
 
 			private static final long serialVersionUID = 1L;
@@ -115,9 +117,9 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 			public Component getListCellRendererComponent(JList<?> list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
-						User user = (User) value;
+						UserDate user = (UserDate) value;
 				
-						String userString = user.getPseudo();
+						String userString = user.getUser().getPseudo();
 				
 						return super.getListCellRendererComponent(list, userString, index, isSelected,
 						cellHasFocus);
@@ -139,7 +141,7 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 		buttonChat.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				User user = connectedUsersList.getSelectedValue();
+				User user = connectedUsersList.getSelectedValue().getUser();
 				
 				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
 				listener.openChatView(user); 

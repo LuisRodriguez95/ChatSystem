@@ -1,7 +1,8 @@
 package interfaces;
 
 import model.Message;
-import model.User;
+
+import communication.User;
 
 public interface MessageChannel {
 	public void addReceivedMessage(Message message); 
