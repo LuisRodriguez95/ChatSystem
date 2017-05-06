@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.concurrent.ConcurrentNavigableMap;
 
 import communication.User;
 import communication.User.typeConnect;
@@ -20,13 +20,14 @@ import model.ConnectedUsers;
  */
 public class UpdateConnectedUsers implements Runnable, UserUpdater {
 
-	private ConnectedUsers users = ConnectedUsers.getInstance();
+	private final ConnectedUsers users ;
 
 	private HashMap<User, Date> usersdate = new HashMap<User, Date>(); 
 	
 	private long timerLost=4000;
 
-	public UpdateConnectedUsers(){  
+	public UpdateConnectedUsers(ConnectedUsers users){  
+		this.users=users;
 	}
 
 	public void startDetection() {

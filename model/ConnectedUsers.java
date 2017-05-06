@@ -20,11 +20,7 @@ public class ConnectedUsers implements ListSelectionListener {
 	
 	private DefaultListModel<User> listUsers = new DefaultListModel<User>();
 	
-	private static ConnectedUsers instance = new ConnectedUsers();   
-	public static ConnectedUsers getInstance()
-	{	return instance;
-	}
-	private ConnectedUsers(){   //Private constructor to implement Singleton design pattern
+	public ConnectedUsers(){   //Private constructor to implement Singleton design pattern
 	}
 		
 	public boolean containsUser(User user){

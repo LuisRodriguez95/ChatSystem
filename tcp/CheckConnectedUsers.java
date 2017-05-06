@@ -101,7 +101,7 @@ public class CheckConnectedUsers implements Runnable{
 		CheckConnectedUsers checkConnectedUsers = new CheckConnectedUsers(ip, 6000,user1);
 		checkConnectedUsers.startChecker();
 		while(true){
-			System.out.println(ConnectedUsers.getInstance().getListUsers().toString());
+//			System.out.println(ConnectedUsers.getInstance().getListUsers().toString());
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {

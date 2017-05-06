@@ -45,7 +45,7 @@ public class Controller implements CanalVuesController{
 		this.comProcess = new Communication(this.localUser);
 		this.comProcess.startServer();
 		
-		ConnectedUsersWindow cUW = new ConnectedUsersWindow(localUser);
+		ConnectedUsersWindow cUW = new ConnectedUsersWindow(localUser,userListctrl.getUsers());
 		cUW.setListener(this); 
 	}
 

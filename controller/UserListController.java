@@ -5,6 +5,7 @@ import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
 
 import communication.User;
+import model.ConnectedUsers;
 
 public class UserListController  {
 	private final User localUser; // localUser is the user connected to the ChatSystem 
@@ -13,6 +14,7 @@ public class UserListController  {
 	private final int portMulticast=6789;
 	private final UpdateConnectedUsers updater;
 	private final AlertOthersUsers alerter;
+	private final ConnectedUsers users;
 	private final CheckConnectedUsers listeningSocket;
 	
 public UserListController(User localUser) {
@@ -23,8 +25,9 @@ public UserListController(User localUser) {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		this.users = new ConnectedUsers();
 		this.ipMulticast=ipMultiInterm;
-		this.updater = new UpdateConnectedUsers();
+		this.updater = new UpdateConnectedUsers(users);
 		this.alerter = new AlertOthersUsers(this.ipMulticast, this.portMulticast, this.localUser);
 		this.listeningSocket = new CheckConnectedUsers(this.ipMulticast, this.portMulticast, this.localUser);
 		this.listeningSocket.setListener(updater);  // Le controlleur de mise à jour des users écoute le serveur d'écoute de datagram
@@ -34,6 +37,10 @@ public UserListController(User localUser) {
 		alerter.startAlerter();
 		listeningSocket.startChecker();
 		updater.startDetection();
+	}
+	
+	public ConnectedUsers getUsers(){
+		return this.users;
 	}
 	
 	
