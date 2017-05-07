@@ -1,10 +1,13 @@
 package view;
 
+import interfaces.AlerterNewMessage;
 import interfaces.CanalVuesController;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -28,12 +32,14 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import model.ConnectedUsers;
 import communication.User;
 import communication.User.typeConnect;
 
 
-public class ConnectedUsersWindow implements ListSelectionListener {
+public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewMessage {
 	/** a label for the name */
 	JFrame frame = new JFrame();
 	private JList<User> connectedUsersList;
@@ -42,6 +48,7 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	private final DefaultListModel<User> listModel ;
 	private CanalVuesController listener;
 	private User user;
+	private HashMap<User, Integer> renderer = new HashMap<User, Integer>();
 	public void setListener(CanalVuesController listener) {
 		this.listener = listener;
 	}
@@ -107,20 +114,25 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 
 
 		connectedUsersList = new JList<User>(listModel);
+	
 		connectedUsersList.setCellRenderer(new DefaultListCellRenderer(){
-
-			private static final long serialVersionUID = 1L;
-
-			public Component getListCellRendererComponent(JList<?> list,
-					Object value, int index, boolean isSelected,
-					boolean cellHasFocus) {
-				User user = (User)value;
-
-				String userString = user.getPseudo();
-
-				return super.getListCellRendererComponent(list, userString, index, isSelected,
-						cellHasFocus);
-			}
+			public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
+				User user = (User) value;
+				this.setText(user.getPseudo() +" : "+ user.getStatut());
+				if (renderer.containsKey(user)){
+					if(renderer.get(user)>0){
+						this.setBackground(new Color(215, 189, 226));
+						this.setText(user.getPseudo() +" ["+renderer.get(user)+" message(s) to read] : "+ user.getStatut());
+					}
+				}
+				else if(isSelected){
+					this.setBackground(new Color(162, 217, 206));
+				}
+				else{
+					this.setBackground(Color.white);
+				}
+	            return this;
+	        }
 		});
 		connectedUsersList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		connectedUsersList.setSelectedIndex(0);
@@ -140,8 +152,10 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 			public void actionPerformed(ActionEvent e) {
 				User user = connectedUsersList.getSelectedValue();
 
-				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
+//				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
+				readMessage(user);
 				listener.openChatView(user); 
+				
 			}
 		});
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -178,6 +192,21 @@ public class ConnectedUsersWindow implements ListSelectionListener {
 	public void valueChanged(ListSelectionEvent arg0) {
 		//System.out.println("osef");
 
+	}
+
+	public void newMessage(User user) {
+		if (this.renderer.get(user)!=null){
+			this.renderer.put(user, this.renderer.get(user)+1);
+		}
+		else{
+			this.renderer.put(user, 1);
+		}
+		this.frame.repaint();
+	}
+	
+	public void readMessage(User user){
+		this.renderer.remove(user);
+		this.frame.repaint();
 	}
 
 //	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package controller;
 
+import interfaces.AlerterNewMessage;
 import interfaces.MessageChannel;
 
 import java.io.FileNotFoundException;
@@ -18,7 +19,7 @@ public class Communication implements MessageChannel { //echangerMessages
 	private final ListeConversations convos;
 	private final communication.User localUser;
 	private final FileServer fileServer;
-	
+	private AlerterNewMessage listener;
 	public Communication(communication.User localUser){
 		this.localUser=localUser;
 		this.sender = new SenderMessage();
@@ -39,13 +40,18 @@ public class Communication implements MessageChannel { //echangerMessages
 	}
 
 	public void addReceivedMessage(Message message) {
-		this.convos.addReceivedMessage(message);		
+		this.convos.addReceivedMessage(message);
+		this.listener.newMessage(message.getSender());
 	}
 
 	public void sendMessage(User contact, String data) {
 		Message sms = new Message(data,this.localUser);
 		this.sender.sendMessage(contact,sms);
 		this.convos.addSentMessageToConversation(contact,sms);
+	}
+	
+	public void setListener(AlerterNewMessage listener){
+		this.listener=listener;
 	}
 	
 	public void sendFile(User contact){

@@ -47,6 +47,7 @@ public class Controller implements CanalVuesController{
 		
 		ConnectedUsersWindow cUW = new ConnectedUsersWindow(localUser,userListctrl.getUsers());
 		cUW.setListener(this); 
+		this.comProcess.setListener(cUW);
 	}
 
 	public void setLocalUser(String pseudo) {
