@@ -1,6 +1,7 @@
 package controller;
 
 import interfaces.CanalVuesController;
+import tcp.IPAddress;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,11 +23,8 @@ public class Controller implements CanalVuesController{
 	private UserListController userListctrl;
 	
 	public Controller(){
-		try {
-			this.ipContact = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}	
+			this.ipContact = IPAddress.getConnectedIP();
+	
 		Random r = new Random();
 		this.portContact = r.nextInt(30000-6000) + 6000;
 		this.portFile = r.nextInt(30000-6000) + 6000;
@@ -60,11 +58,6 @@ public class Controller implements CanalVuesController{
 		this.localUser.setStatut(statut);
 	}
 	
-	public static void main(String[] args) {
-		Controller ct = new Controller();
-		ct.run();
-	}
-
 	public void openChatView(User user) {
 		ChatView chat = new ChatView(user);
 		chat.setConvo(comProcess.getConvos().getConversation(user));
@@ -74,7 +67,11 @@ public class Controller implements CanalVuesController{
 
 	public void disconnect() {
 		userListctrl.sendDisconnexion();
-		
+	}
+	
+	public static void main(String[] args) {
+		Controller ct = new Controller();
+		ct.run();
 	}
 
 	

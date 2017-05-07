@@ -46,8 +46,7 @@ public class CheckConnectedUsers implements Runnable{
 	}
 
 
-	public Object recv(){
-		Object recvUser=null;
+	public void recv(){
 		byte[] recvBuf = new byte[1000];
 		DatagramPacket packet = new DatagramPacket(recvBuf,recvBuf.length);
 		try {
@@ -55,7 +54,9 @@ public class CheckConnectedUsers implements Runnable{
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
 			ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
 			try {  //receivedObject
-				recvUser = is.readObject();
+				Object recvUser = is.readObject();
+//				System.out.println("New User : " + recvUser.toString());
+				updateModel(recvUser);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -63,7 +64,6 @@ public class CheckConnectedUsers implements Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return recvUser;
 	}
 
 
@@ -87,8 +87,7 @@ public class CheckConnectedUsers implements Runnable{
 	
 	public void run() {
 		while(true){
-			Object obj = this.recv();
-			updateModel(obj);
+			this.recv();
 		}
 	}
 	public static void main(String[] args) {
