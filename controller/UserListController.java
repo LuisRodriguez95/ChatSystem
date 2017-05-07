@@ -43,6 +43,10 @@ public UserListController(User localUser) {
 		return this.users;
 	}
 	
+	public void sendDisconnexion(){
+		this.alerter.disconnect(localUser);
+	}
+	
 	
 //	public static void main(String[] args) {
 //		User me=null;

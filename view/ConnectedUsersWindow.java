@@ -91,10 +91,9 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 
 			public void actionPerformed(ActionEvent e) {
-				new ConnectWindow();
+				listener.disconnect();
 				frame.dispose();
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-
 			}
 		});
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -177,20 +176,16 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 	class MyListDataListener implements ListDataListener {
 		public void contentsChanged(ListDataEvent e) {
-			System.out.println("jjj");
 		}
 		public void intervalAdded(ListDataEvent e) {
-			//System.out.println("qsd");
 		}
 		public void intervalRemoved(ListDataEvent e) {
-			//System.out.println("sdf");
 		}
 	}
 
 
 
 	public void valueChanged(ListSelectionEvent arg0) {
-		//System.out.println("osef");
 
 	}
 

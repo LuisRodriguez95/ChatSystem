@@ -19,6 +19,7 @@ public class Controller implements CanalVuesController{
 	private final int portContact;
 	private final int portFile;
 	private Communication comProcess;
+	private UserListController userListctrl;
 	
 	public Controller(){
 		try {
@@ -40,7 +41,7 @@ public class Controller implements CanalVuesController{
 	}
 
 	public void startChat() {
-		UserListController userListctrl = new UserListController(this.localUser);
+		userListctrl = new UserListController(this.localUser);
 		userListctrl.startChatProcess();
 		this.comProcess = new Communication(this.localUser);
 		this.comProcess.startServer();
@@ -69,6 +70,11 @@ public class Controller implements CanalVuesController{
 		chat.setConvo(comProcess.getConvos().getConversation(user));
 		chat.setListeners(comProcess);
 		chat.updatechatView();
+	}
+
+	public void disconnect() {
+		userListctrl.sendDisconnexion();
+		
 	}
 
 	

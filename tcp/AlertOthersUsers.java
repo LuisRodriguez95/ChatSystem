@@ -17,6 +17,7 @@ public class AlertOthersUsers implements Runnable {
 	private MulticastSocket socket;
 	private int portMulticast;
 	private Object objToSend;
+	private Boolean running;
 	/**
 	 * Given an object, send a multicast datagram to the given MulticastAddress
 	 * @param multicastAddress Address of the multicast to connect with peer
@@ -25,6 +26,7 @@ public class AlertOthersUsers implements Runnable {
 	 */
 	public AlertOthersUsers(InetAddress multicastAddress, int portMulticast,User localUser){
 		this.group = multicastAddress;
+		this.running = true;
 		try {
 			this.socket= new MulticastSocket(portMulticast);
 		} catch (IOException e) {
@@ -64,10 +66,16 @@ public class AlertOthersUsers implements Runnable {
 	public void startAlerter(){
 		new Thread(this).start();
 	}
+	
+	public void disconnect(User localUser){
+		localUser.setEtat(typeConnect.DECONNECTED);
+		this.send(localUser);
+		running = false;
+	}
 
 
 	public void run() {
-		while(true){
+		while(running){
 			try {
 				Thread.sleep(2000);
 				this.send(this.objToSend);
@@ -88,5 +96,13 @@ public class AlertOthersUsers implements Runnable {
 		User monuser= new User("Michel", ip, 8000, typeConnect.CONNECTED);
 		AlertOthersUsers alertOthersUsers = new AlertOthersUsers(ip, 6000, monuser);
 		alertOthersUsers.startAlerter();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		User discUser= new User("Michel", ip, 8000, typeConnect.DECONNECTED);
+		alertOthersUsers.disconnect(discUser);
 	}
 }
