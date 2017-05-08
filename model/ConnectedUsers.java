@@ -12,26 +12,16 @@ import communication.User;
  *  This class implements the Singleton design pattern, ( we just need one list of connected user for an application ) 
  * @author chivunito
  */
-public class ConnectedUsers implements ListSelectionListener {  
+public class ConnectedUsers extends DefaultListModel<User> implements ListSelectionListener {  
 
-	/**
-     * Set of users ( the hashCode is on the User's pseudo )
-     */
 	
-	private DefaultListModel<User> listUsers = new DefaultListModel<User>();
-	
-	public ConnectedUsers(){   
+	public ConnectedUsers(){  
+		super();
 	}
 		
 	public boolean containsUser(User user){
-		return this.listUsers.contains(user);
+		return this.contains(user);
 	}
-	
-	
-	public DefaultListModel<User> getListUsers() {
-		return listUsers;
-	}
-	
 	
 	public void valueChanged(ListSelectionEvent arg0) {
 	}

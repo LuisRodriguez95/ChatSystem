@@ -5,23 +5,14 @@ import javax.swing.DefaultListModel;
 import communication.Message;
 
 
-public class Conversation {  
-
-	private DefaultListModel<Message> messageList = new DefaultListModel<Message>();
-	
-	public DefaultListModel<Message> getMessageList() {
-		return messageList;
-	}
+public class Conversation extends DefaultListModel<Message> {  
 
 	public Conversation(){ 
+		super();
 	}
 
 	public void addMessage(Message message){
-		messageList.addElement(message);
-	}
-	
-	public String toString(){
-		return this.messageList.toString();	
+		this.addElement(message);
 	}
 	
 }

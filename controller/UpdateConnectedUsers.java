@@ -41,12 +41,12 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 				this.usersdate.put(user, new Date());
 			}
 			else {
-				this.users.getListUsers().addElement(user);
+				this.users.addElement(user);
 				this.usersdate.put(user, new Date());
 			}
 		}
 		else {
-			users.getListUsers().removeElement(user);
+			users.removeElement(user);
 			this.usersdate.remove(user);
 		}
 	}
@@ -65,7 +65,7 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 				}
 			}
 			for(User user : usersToRemove){
-				this.users.getListUsers().removeElement(user);
+				this.users.removeElement(user);
 				this.usersdate.remove(user);
 			}
 		}

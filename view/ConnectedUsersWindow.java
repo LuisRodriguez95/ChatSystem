@@ -50,7 +50,7 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 	public ConnectedUsersWindow(User user, ConnectedUsers users){
 		this.user = user;
-		this.listModel=users.getListUsers();
+		this.listModel=users;
 		initComponents();
 	}
 

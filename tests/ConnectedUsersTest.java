@@ -25,7 +25,7 @@ public class ConnectedUsersTest {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		con.getListUsers().addElement(us1);
+		con.addElement(us1);
 		assertEquals(con.containsUser(us1), true);
 	}
 	
@@ -41,7 +41,7 @@ public class ConnectedUsersTest {
 		User us1 = new User("lachaume", addLoc, 1224, typeConnect.CONNECTED);
 		User us2 = new User("thibaut", addLoc, 1225, typeConnect.CONNECTED);
 		
-		con.getListUsers().addElement(us1);
+		con.addElement(us1);
 		assertEquals(con.containsUser(us2),false);
 	}
 

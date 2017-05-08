@@ -55,7 +55,7 @@ public class ChatView implements ListSelectionListener{
 	
 	public void setConvo(Conversation convo) {
 		panel = new JPanel();
-		messages = convo.getMessageList();
+		messages = convo;
 		remote = new SimpleAttributeSet();
         textArea = new JTextPane();
 
