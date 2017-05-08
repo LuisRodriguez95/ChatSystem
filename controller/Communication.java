@@ -6,6 +6,7 @@ import interfaces.MessageChannel;
 import java.io.FileNotFoundException;
 
 import model.ListeConversations;
+import tcp.ContactSocket;
 import tcp.FileClient;
 import tcp.FileServer;
 import tcp.TCPServer;
@@ -14,7 +15,6 @@ import communication.User;
 
 public class Communication implements MessageChannel { //echangerMessages
 	private TCPServer server;
-	private SenderMessage sender;
 	private final int localPort;
 	private final ListeConversations convos;
 	private final communication.User localUser;
@@ -22,7 +22,6 @@ public class Communication implements MessageChannel { //echangerMessages
 	private AlerterNewMessage listener;
 	public Communication(communication.User localUser){
 		this.localUser=localUser;
-		this.sender = new SenderMessage();
 		this.localPort=localUser.getPort();
 		this.convos = new ListeConversations();
 		this.fileServer = new FileServer(this.localUser.getPortFile());
@@ -46,7 +45,8 @@ public class Communication implements MessageChannel { //echangerMessages
 
 	public void sendMessage(User contact, String data) {
 		Message sms = new Message(data,this.localUser);
-		this.sender.sendMessage(contact,sms);
+		ContactSocket sckt = new ContactSocket(contact.getIP(), contact.getPort());
+		sckt.sendMessage(sms);
 		this.convos.addSentMessageToConversation(contact,sms);
 	}
 	
@@ -64,6 +64,8 @@ public class Communication implements MessageChannel { //echangerMessages
 		}
 		FileClient fClient = new FileClient(contact.getIP(), contact.getPortFile());
 		fClient.sendfile(filepath);
+		String filename = filepath.substring(filepath.lastIndexOf("/")+1);
+		sendMessage(contact, this.localUser.getPseudo()+" just sent you a file : " + filename);
 	}
 
 

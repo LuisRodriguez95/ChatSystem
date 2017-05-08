@@ -9,9 +9,9 @@ import model.ConnectedUsers;
 
 public class UserListController  {
 	private final User localUser; // localUser is the user connected to the ChatSystem 
-	private final String adrMulticast="228.5.6.7";  
+	private final String adrMulticast="225.1.2.3";  
 	private final InetAddress ipMulticast; 
-	private final int portMulticast=6789;
+	private final int portMulticast=5002;
 	private final UpdateConnectedUsers updater;
 	private final AlertOthersUsers alerter;
 	private final ConnectedUsers users;
