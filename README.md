@@ -10,7 +10,7 @@ This module is fully implemented in [Java 7](https://docs.oracle.com/javase/7/do
   * Compile it using an IDE (Eclipse, Netbeans...) or the Shell
   * Run the Controller.java
 - `Functionalities`
-  * `Sign in` and `Sign u` modes to choose you your username and a password to protect it
+  * `Sign in` mode to choose your username and a status
   * Real time user connected list : Users send a periodic (2s) message on a multicast channel to advertise other users that they are
   connected. When they disconnect, they also send a message notifiying it.
   * Change your status so other users can see it
@@ -30,3 +30,16 @@ The following tests have been runned with `Junit`. You can find them on the pack
   * `Description` : Changing parameters of the User previously added
   * `Result` : Succes if we change the IP address or the Pseudo but not if we just change the port or the state. The `equals`
   function takes in consideration just the IP address and the Pseudo.
+  
+- `SendSingleUser` test on the AlertOtherUsers Class
+  * `Description` : We instantiate the Alerter class and the Checker class and send an `User` message.
+  * `Result` : Succes
+  
+- `SendMultipleUser` test on the AlertOtherUsers Class
+  * `Description` : We instantiate the Alerter class and the Checker class and we send multiple `User` messages on a different `Thread`.
+  * `Result` : Succes
+  
+## Authors
+
+- Luis Rodriguez Vallejo : @LuisRodriguez95
+- Thibaut Sarion : @Chivunito 
