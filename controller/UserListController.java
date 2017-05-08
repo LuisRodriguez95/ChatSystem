@@ -16,7 +16,7 @@ public class UserListController  {
 	private final AlertOthersUsers alerter;
 	private final ConnectedUsers users;
 	private final CheckConnectedUsers listeningSocket;
-	
+
 public UserListController(User localUser) {
 		this.localUser=localUser;
 		InetAddress ipMultiInterm=null;
