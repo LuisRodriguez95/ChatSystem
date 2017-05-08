@@ -7,15 +7,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import javax.swing.DefaultListCellRenderer;
@@ -32,11 +29,9 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import model.ConnectedUsers;
+
 import communication.User;
-import communication.User.typeConnect;
 
 
 public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewMessage {
@@ -203,17 +198,6 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 		this.renderer.remove(user);
 		this.frame.repaint();
 	}
-
-//	public static void main(String[] args) {
-//		User user = null;
-//		try {
-//			user = new User("luis", InetAddress.getLocalHost(), 5200, typeConnect.CONNECTED);
-//		} catch (UnknownHostException e) {
-//			e.printStackTrace();
-//		}
-//		new ConnectedUsersWindow(user);
-//
-//	}
 
 
 }

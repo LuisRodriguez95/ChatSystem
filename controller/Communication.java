@@ -60,7 +60,6 @@ public class Communication implements MessageChannel { //echangerMessages
 		try {
 			filepath=fBrowser.getFile();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("File sended to "+ contact.getPseudo() + " :" + filepath + "sur son port " +contact.getPortFile());

@@ -30,9 +30,9 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import model.Conversation;
+
 import communication.Message;
 import communication.User;
 
@@ -141,7 +141,6 @@ public class ChatView implements ListSelectionListener{
 				                textArea.setParagraphAttributes(remote, true);
 								textA.insertString(textA.getLength(), text+ "\n", remote);
 							} catch (BadLocationException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						}
@@ -150,7 +149,6 @@ public class ChatView implements ListSelectionListener{
 				                textArea.setParagraphAttributes(local, true);
 								textA.insertString(textA.getLength(), text+ "\n", local);
 							} catch (BadLocationException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						}

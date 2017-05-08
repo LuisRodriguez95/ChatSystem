@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +20,10 @@ public class AlertOtherUsersTest {
 	protected AlertOthersUsers alert;
 	protected CheckConnectedUsers check;
 	InetAddress ip;
+	boolean finished;
+	int j;
+	ArrayList<Object> sendObj,recvObj;
+	Object obj = null;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -26,7 +31,9 @@ public class AlertOtherUsersTest {
 		User localUser = new User("Joris", ip, 3322, typeConnect.CONNECTED);
 		alert = new AlertOthersUsers(ip, 2233, localUser );
 		check = new CheckConnectedUsers(ip, 2233, localUser);
-
+		finished = false;
+		sendObj = new ArrayList<Object>();
+		recvObj = new ArrayList<Object>();
 		//check.startChecker();
 	}
 
@@ -63,24 +70,37 @@ public class AlertOtherUsersTest {
 	
 	@Test
 	public void testSendMultipleUsers() {
-		Object obj = null;
-		final User monuser= new User("Michel", ip, 8000, typeConnect.CONNECTED);
-		Thread envoi = new Thread(new Runnable() {
+		User monuser= new User("Michel", ip, 8000, typeConnect.CONNECTED);
+		
+		Thread rcv = new Thread(new Runnable() {
 			public void run() {
-				for (int i = 0; i < 100; i++) {
-					User monuser= new User("Michel", ip, 8000+i, typeConnect.CONNECTED);
-					alert.send(monuser);
+				while (true){
+					obj = check.recv();
+					j++;
+					recvObj.add(obj);
 				}
 			}
 		});
-		
 
-		envoi.start();
+		rcv.start();
 		
-		obj = check.recv();
+		for (int i = 0; i < 20; i++) {
+			monuser= new User("Michel"+i, ip, 8000, typeConnect.CONNECTED);
+			alert.send(monuser);
+			
+			sendObj.add(monuser);
+		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
-		envoi.interrupt();
-		assertEquals(monuser, (User)obj);
+	
+		rcv.interrupt();
+		System.out.println(j);
+		assertEquals(recvObj,sendObj);
 		
 
 	}

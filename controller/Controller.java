@@ -1,12 +1,11 @@
 package controller;
 
 import interfaces.CanalVuesController;
-import tcp.IPAddress;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Random;
 
+import tcp.IPAddress;
 import view.ChatView;
 import view.ConnectWindow;
 import view.ConnectedUsersWindow;

@@ -6,22 +6,19 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-import jdk.internal.dynalink.beans.StaticClass;
-
 public class IPAddress {
 	public static InetAddress getIPloopback(){
 		InetAddress loopback=null;
 		try {
 			loopback = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return loopback;
 	}
 	
 	public static InetAddress getConnectedIP(){
-		Enumeration e=null;
+		Enumeration<NetworkInterface> e=null;
 		InetAddress ip= null;
 		try {
 			e = NetworkInterface.getNetworkInterfaces();
@@ -38,7 +35,7 @@ public class IPAddress {
 				e1.printStackTrace();
 			}
 			if (connected){
-				Enumeration ee = n.getInetAddresses();
+				Enumeration<InetAddress> ee = n.getInetAddresses();
 				while (ee.hasMoreElements())
 				{
 					ip = (InetAddress) ee.nextElement();

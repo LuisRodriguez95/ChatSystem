@@ -26,6 +26,6 @@ public class CompteurMessage {
 	
 	
 	public static void main(String[] args) {
-		CompteurMessage cM = new CompteurMessage();
+		new CompteurMessage();
 	}
 }

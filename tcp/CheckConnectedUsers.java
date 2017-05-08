@@ -1,5 +1,7 @@
 package tcp;
 
+import interfaces.UserUpdater;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -8,12 +10,8 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-
-import model.ConnectedUsers;
-
 import communication.User;
 import communication.User.typeConnect;
-import interfaces.UserUpdater;
 
 
 public class CheckConnectedUsers implements Runnable{
@@ -102,11 +100,9 @@ public class CheckConnectedUsers implements Runnable{
 		CheckConnectedUsers checkConnectedUsers = new CheckConnectedUsers(ip, 6000,user1);
 		checkConnectedUsers.startChecker();
 		while(true){
-//			System.out.println(ConnectedUsers.getInstance().getListUsers().toString());
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

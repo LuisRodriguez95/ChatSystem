@@ -1,5 +1,7 @@
 package view;
 
+import interfaces.CanalVuesController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -11,16 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import interfaces.CanalVuesController;
-import model.PasswordDTB;
-
 public class ConnectWindow extends Observable {
 
 	private final JFrame frame;
 	/** a label for the name */
-	private final JLabel labelUser, labelPwd;
+	private final JLabel labelUser, labelStatut;
 	/** a textfield for the name */
-	private final JTextField textUser, textPwd;
+	private final JTextField textUser, textStatut;
 	/** a button to perform an action: e.g. say hello (TBD) */
 	private final JButton button;
 
@@ -29,9 +28,9 @@ public class ConnectWindow extends Observable {
 	public ConnectWindow() {
 		frame = new JFrame();
 		labelUser = new JLabel("User");
-		labelPwd = new JLabel("Password");
+		labelStatut = new JLabel("Statut");
 
-		textPwd = new JTextField("");
+		textStatut = new JTextField("");
 		textUser = new JTextField("");
 		button = new JButton("Connect");
 		initComponents();
@@ -43,25 +42,11 @@ public class ConnectWindow extends Observable {
 
 			public void actionPerformed(ActionEvent e) {
 				String user = textUser.getText();
-				String pass = textPwd.getText();
-				if (PasswordDTB.getHmap().containsKey(user)){
-					String pwd = PasswordDTB.getHmap().get(user);
-					if (pwd.equals(textPwd.getText())) {
-						frame.dispose();
-						listener.setLocalUser(user);
-						listener.startChat();
-					} else {
-						System.out.println("surprise motherfucker " + user
-								+ " mauvais user " + " le bon pwd est : " + pwd);
-					}
-				}
-				else{
-					PasswordDTB.addUser(user, pass);
-					frame.dispose();
-					listener.setLocalUser(user);
-					listener.startChat();
-				}
-
+				String statut = textStatut.getText();
+				frame.dispose();
+				listener.setLocalUser(user);
+				listener.setLocalStatut(statut);
+				listener.startChat();
 			}
 		});
 
@@ -79,15 +64,15 @@ public class ConnectWindow extends Observable {
 				.addGroup(
 						layout.createParallelGroup(
 								GroupLayout.Alignment.LEADING)
-								.addComponent(labelPwd).addComponent(button))
-				.addComponent(textPwd));
+								.addComponent(labelStatut).addComponent(button))
+				.addComponent(textStatut));
 		layout.setVerticalGroup(layout
 				.createSequentialGroup()
 				.addGroup(
 						layout.createParallelGroup(
 								GroupLayout.Alignment.BASELINE)
 								.addComponent(labelUser).addComponent(textUser)
-								.addComponent(labelPwd).addComponent(textPwd))
+								.addComponent(labelStatut).addComponent(textStatut))
 				.addComponent(button));
 
 		// regarding the added components
