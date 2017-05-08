@@ -8,7 +8,7 @@ This module is fully implemented in [Java 7](https://docs.oracle.com/javase/7/do
   * Clone the project from `GitHub`
   * Add as external Jar the three .jar that you will find on the project (`ChatSystemUtil` `JUnit4.11` and `hamcrest1.3`).
   * Compile it using an IDE (Eclipse, Netbeans...) or the Shell
-  * Run the Controller.java
+  * Run the Controller.java, there is a main at the bottom
 - `Functionalities`
   * `Sign in` mode to choose your username and a status
   * Real time user connected list : Users send a periodic (2s) message on a multicast channel to advertise other users that they are
@@ -38,6 +38,16 @@ The following tests have been runned with `Junit`. You can find them on the pack
 - `SendMultipleUser` test on the AlertOtherUsers Class
   * `Description` : We instantiate the Alerter class and the Checker class and we send multiple `User` messages on a different `Thread`.
   * `Result` : Succes
+
+- `SendMultipleMessages` test on the Communication Class
+  * `Description` : We instantiate the TCPServer and Contact Socket in order to simulate the sending of 200 `Messages` and try to retrieve them on the other side.
+  * `Result` : Succes
+
+- `ListeConversation` test on the ListeConversation Class
+  * `Description` : We instantiate a conversations List and perform several method call on it.
+  * `Result` : Succes
+
+
   
 ## Authors
 
