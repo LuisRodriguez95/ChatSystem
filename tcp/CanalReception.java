@@ -32,7 +32,6 @@ public class CanalReception implements Runnable{
 			try {
 				Message message = (Message)serverInputStream.readObject();
 				listener.addReceivedMessage(message);
-				System.out.println(message.toString());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}

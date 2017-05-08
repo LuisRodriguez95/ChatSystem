@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 
 public class FileClient {
@@ -23,29 +22,23 @@ public class FileClient {
 		try {
 			socketinter = new Socket(this.address, this.contactPort);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		this.socket=socketinter;
 	}
 
 	public void sendfile(String filename){
 		File file = new File(filename);
-		// Get the size of the file
-		//long length = file.length();	
-		System.out.println(file.length());
 		byte[] bytes = new byte[16 * 1024];
 		InputStream in= null;
 		try {
 			in = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		OutputStream out=null;
 		try {
 			out = this.socket.getOutputStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -55,7 +48,6 @@ public class FileClient {
 				out.write(bytes, 0, count);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -64,24 +56,9 @@ public class FileClient {
 			in.close();
 			socket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		FileClient fClient= null;
-		try {
-			fClient = new FileClient(InetAddress.getLocalHost(), 6800);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			fClient.sendfile("citoyenne.pdf");
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 }

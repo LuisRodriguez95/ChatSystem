@@ -1,15 +1,16 @@
 package controller;
 
+import interfaces.UserUpdater;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentNavigableMap;
+
+import model.ConnectedUsers;
 
 import communication.User;
 import communication.User.typeConnect;
-import interfaces.UserUpdater;
-import model.ConnectedUsers;
 
 
 /**
@@ -60,7 +61,6 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 		if (!this.usersdate.isEmpty()) {  // Si la liste d'users n'est pas vide
 			for(Map.Entry<User, Date> entry : this.usersdate.entrySet()){
 				if (now.getTime() - entry.getValue().getTime() > this.timerLost) {  // rajouter la condition
-					System.out.println("User déconnecté: "+ entry.getKey());
 					usersToRemove.add(entry.getKey());
 				}
 			}
@@ -82,24 +82,5 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 		}
 	}
 
-	//	public static void main(String[] args) {
-	//		InetAddress ip = null;
-	//		try {
-	//			ip=InetAddress.getLocalHost();
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//		User user1= new User("Denis", ip, 8000, typeConnect.CONNECTED);
-	//		UpdateConnectedUsers.getInstance().updateUser(user1);
-	//		while(true){
-	//			System.out.println(ConnectedUsers.getInstance().toString());
-	//			try {
-	//				Thread.sleep(1000);
-	//			} catch (InterruptedException e) {
-	//				// TODO Auto-generated catch block
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	}
 
 }

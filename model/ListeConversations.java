@@ -18,7 +18,7 @@ public class ListeConversations {
 			return this.listeConversations.get(user);
 		}
 		else{
-			Conversation conv = new Conversation(); // creer une nouvelle conversation pour l'utilisateur
+			Conversation conv = new Conversation(); 
 			this.listeConversations.put(user, conv);
 			return this.listeConversations.get(user);	
 

@@ -34,7 +34,6 @@ public class TCPServer implements Runnable {
 		while(true){
 			try {
 				Socket socket = this.welcomeSocket.accept();
-				System.out.println("Message reçu");
 				CanalReception canal = new CanalReception(socket);
 				canal.setListener(this.listener);
 				canal.readMessage();
@@ -43,22 +42,5 @@ public class TCPServer implements Runnable {
 			}
 		}	
 	}
-//		
-//	public static void main(String[] args) {
-//		System.out.println("Server listening");
-//		TCPServer server = new TCPServer(6000);
-//		ListeConversations liste = new ListeConversations();
-//		server.setListener(liste);
-//		
-//		new Thread(server).start();
-//		while(true){
-//			try {
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			System.out.println(liste.toString());
-//		}
-//	}
-//	
+
 }

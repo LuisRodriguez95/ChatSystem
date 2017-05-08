@@ -75,9 +75,7 @@ public class ConnectWindow extends Observable {
 								.addComponent(labelStatut).addComponent(textStatut))
 				.addComponent(button));
 
-		// regarding the added components
 
-		// the JFrame is visible now
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

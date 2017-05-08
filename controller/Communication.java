@@ -62,34 +62,9 @@ public class Communication implements MessageChannel { //echangerMessages
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("File sended to "+ contact.getPseudo() + " :" + filepath + "sur son port " +contact.getPortFile());
 		FileClient fClient = new FileClient(contact.getIP(), contact.getPortFile());
 		fClient.sendfile(filepath);
 	}
-//
-//	public static void main(String[] args) {
-//		User localUser=null;
-//		try {
-//			localUser = new User("Michel", InetAddress.getLocalHost(), 6001, 6002,typeConnect.CONNECTED);
-//		} catch (UnknownHostException e) {
-//			e.printStackTrace();
-//		}
-//
-//		Communication com = new Communication(localUser);
-//		com.startServer();
-//
-//		while(true){
-//			try {
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			System.out.println(com.getConvos().toString());
-//		}
-//	}
 
-	public void stop() {
-		this.server.closeServer();
-		
-	}
+
 }

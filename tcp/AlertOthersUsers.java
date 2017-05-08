@@ -44,7 +44,7 @@ public class AlertOthersUsers implements Runnable {
 		this.portMulticast=portMulticast;
 	}
 
-	public void send(Object objToSend){   //fonction blocante pour le moment
+	public void send(Object objToSend){   
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
 		try {
 			// 3 step : Construct objectOutputStream using the bytearray
@@ -58,7 +58,6 @@ public class AlertOthersUsers implements Runnable {
 			this.socket.send(datagram);
 			os.close();
 		} catch (IOException e) {
-			System.out.println("Peut venir de plusieurs endroit ci-dessus");
 			e.printStackTrace();
 		}
 	}
@@ -80,7 +79,6 @@ public class AlertOthersUsers implements Runnable {
 				Thread.sleep(2000);
 				this.send(this.objToSend);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -99,7 +97,6 @@ public class AlertOthersUsers implements Runnable {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		User discUser= new User("Michel", ip, 8000, typeConnect.DECONNECTED);

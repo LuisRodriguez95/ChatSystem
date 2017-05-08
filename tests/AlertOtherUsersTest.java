@@ -34,7 +34,6 @@ public class AlertOtherUsersTest {
 		finished = false;
 		sendObj = new ArrayList<Object>();
 		recvObj = new ArrayList<Object>();
-		//check.startChecker();
 	}
 
 	@After
@@ -55,17 +54,10 @@ public class AlertOtherUsersTest {
 
 		envoi.start();
 		obj = check.recv();
-		System.out.println("samere");
 	
 		envoi.interrupt();
 		assertEquals(monuser, (User)obj);
 		
-//		for (int i = 0; i < 100; i++) {
-//			User monuser= new User("Michel", addr, 8000+i, typeConnect.CONNECTED);
-//			alert.send(monuser);
-//		}
-//		envoi.start();
-//		Object obj = check.recv();
 	}
 	
 	@Test
@@ -76,7 +68,6 @@ public class AlertOtherUsersTest {
 			public void run() {
 				while (true){
 					obj = check.recv();
-					j++;
 					recvObj.add(obj);
 				}
 			}
@@ -93,16 +84,10 @@ public class AlertOtherUsersTest {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	
 		rcv.interrupt();
-		System.out.println(j);
-		assertEquals(recvObj,sendObj);
-		
-
+		assertEquals(sendObj,recvObj);
 	}
 
 }

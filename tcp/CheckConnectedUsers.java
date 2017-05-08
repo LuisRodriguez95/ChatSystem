@@ -52,7 +52,7 @@ public class CheckConnectedUsers implements Runnable{
 			this.socket.receive(packet);
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
 			ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
-			try {  //receivedObject
+			try {  
 				recvUser = is.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

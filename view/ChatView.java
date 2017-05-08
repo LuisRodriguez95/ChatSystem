@@ -108,24 +108,14 @@ public class ChatView implements ListSelectionListener{
                 final JTextField input = new JTextField(20);
                 
                 messages.addListDataListener(new ListDataListener() {
-					
-	
-					public void intervalRemoved(ListDataEvent e) {
-						System.out.println("changement2");
-						
+				
+					public void intervalRemoved(ListDataEvent e) {						
 					}
-					
 					public void intervalAdded(ListDataEvent e) {
-
 		                textArea.setText("");
 						updatechatView();
-												
-
 					}
-					
-
 					public void contentsChanged(ListDataEvent e) {
-						System.out.println("changement");
 						
 					}
 				});
@@ -152,7 +142,6 @@ public class ChatView implements ListSelectionListener{
 								e1.printStackTrace();
 							}
 						}
-						System.out.println("Trying to send a message to " + user);
 						ChatView.this.listeners.sendMessage(user, text);
 					}
 				});
@@ -185,21 +174,17 @@ public class ChatView implements ListSelectionListener{
 		this.listeners=listener;
 	}
 	
-	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void valueChanged(ListSelectionEvent e) {		
 	}
 	
 	public void updatechatView(){
 		for (int i = 0;i<messages.getSize();i++){
-			System.out.println("expediteur du message : "+ messages.get(i).getSender() + " et on est sur le chat de : "+ user);
 			if (messages.get(i).getSender().equals(user)){
 				try {
 					Message message = messages.get(i);
 	                textArea.setParagraphAttributes(local, true);
 	                textA.insertString(textA.getLength(), message.getDate().getHours()+"h"+ message.getDate().getMinutes() +" : "+ message.getData() + "\n", remote);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -209,7 +194,6 @@ public class ChatView implements ListSelectionListener{
 	                textArea.setParagraphAttributes(remote, true);
 					textA.insertString(textA.getLength(),message.getDate().getHours()+"h"+ message.getDate().getMinutes() +" : "+ message.getData() + "\n", local);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

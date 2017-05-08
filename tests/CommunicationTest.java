@@ -1,18 +1,19 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import interfaces.MessageChannel;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.junit.Test;
 
+import tcp.ContactSocket;
+import tcp.TCPServer;
+
 import communication.Message;
 import communication.User;
 import communication.User.typeConnect;
-import controller.SenderMessage;
-import interfaces.MessageChannel;
-import tcp.ContactSocket;
-import tcp.TCPServer;
 
 /**
  * Test de verification pour l'envoi et reception de messages,  
@@ -35,7 +36,7 @@ public class CommunicationTest {
 		TCPServer server = new TCPServer(9001);
 		CompteurMessage counter = new CompteurMessage();
 		server.setListener(counter);
-		server.start();
+		new Thread(server).start(); 
 
 
 		User expediteur = new User("Testing", ip, 6000, typeConnect.CONNECTED);
@@ -52,7 +53,6 @@ public class CommunicationTest {
 		try {
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -66,17 +66,12 @@ public class CommunicationTest {
 		public int receivedmessage = 0;
 		synchronized public void addReceivedMessage(Message message) {
 			receivedmessage ++;
-			//			System.out.println("Message received : "+ receivedmessage +" " + message.getData());
 		}
 
 		public void sendMessage(User contact, String data) {
-			// TODO Auto-generated method stub
-
 		}
 
 		public void sendFile(User contact) {
-			// TODO Auto-generated method stub
-
 		}
 
 	}

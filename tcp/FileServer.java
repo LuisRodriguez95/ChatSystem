@@ -62,20 +62,17 @@ public class FileServer implements Runnable {
 			try {
 				out.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
 				in.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			try {
 				socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -86,9 +83,5 @@ public class FileServer implements Runnable {
 		
 	}
 
-	public static void main(String[] args) {
-		FileServer fs =new FileServer(6800);
-		new Thread(fs).start();
-	}
 
 }

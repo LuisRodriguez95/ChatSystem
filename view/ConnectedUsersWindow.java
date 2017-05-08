@@ -67,7 +67,7 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 		buttonStatus = new JButton("Change status");
 
-		buttonStatus.addActionListener(new ActionListener() {   //SET LE STATUT
+		buttonStatus.addActionListener(new ActionListener() {   
 
 			public void actionPerformed(ActionEvent e) {
 				String status = JOptionPane.showInputDialog(buttonChat,"Enter new status", null);
@@ -134,7 +134,7 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 		JScrollPane listScrollPane = new JScrollPane(connectedUsersList);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 150;      //make this component tall
+		c.ipady = 150;     
 		c.weightx = 0.0;
 		c.gridwidth = 3;
 		c.gridx = 0;
@@ -145,8 +145,6 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 
 			public void actionPerformed(ActionEvent e) {
 				User user = connectedUsersList.getSelectedValue();
-
-//				System.out.println(user.getPseudo()+ " voila le user : "+ user.toString());
 				readMessage(user);
 				listener.openChatView(user); 
 				

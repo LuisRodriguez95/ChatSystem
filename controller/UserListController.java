@@ -9,7 +9,7 @@ import model.ConnectedUsers;
 
 public class UserListController  {
 	private final User localUser; // localUser is the user connected to the ChatSystem 
-	private final String adrMulticast="228.5.6.7";  // TO MODIFY IF NEEDED
+	private final String adrMulticast="228.5.6.7";  
 	private final InetAddress ipMulticast; 
 	private final int portMulticast=6789;
 	private final UpdateConnectedUsers updater;
@@ -30,7 +30,7 @@ public UserListController(User localUser) {
 		this.updater = new UpdateConnectedUsers(users);
 		this.alerter = new AlertOthersUsers(this.ipMulticast, this.portMulticast, this.localUser);
 		this.listeningSocket = new CheckConnectedUsers(this.ipMulticast, this.portMulticast, this.localUser);
-		this.listeningSocket.setListener(updater);  // Le controlleur de mise à jour des users écoute le serveur d'écoute de datagram
+		this.listeningSocket.setListener(updater);  
 	}
 	
 	public void startChatProcess() {
@@ -48,18 +48,6 @@ public UserListController(User localUser) {
 	}
 	
 	
-//	public static void main(String[] args) {
-//		User me=null;
-//		try {
-//			me = new User("Denis", InetAddress.getLocalHost(), 6000,6002, typeConnect.CONNECTED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		UserListController ctrl = new UserListController(me);
-//		ctrl.startChatProcess();
-//		new ConnectedUsersWindow(me);
-//
-//	}
 	
 }
 	

@@ -45,8 +45,4 @@ public class IPAddress {
 		return ip;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(IPAddress.getIPloopback());
-		System.out.println(IPAddress.getConnectedIP());
-	}
 }
