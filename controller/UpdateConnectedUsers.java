@@ -25,7 +25,8 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 
 	private HashMap<User, Date> usersdate = new HashMap<User, Date>(); 
 	
-	private long timerLost=4000;
+	private long timercheck=2000;
+	private long timerLost=5000;
 
 	public UpdateConnectedUsers(ConnectedUsers users){  
 		this.users=users;
@@ -74,7 +75,7 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 	public void run() {
 		while(true){
 			try {
-				Thread.sleep(this.timerLost);
+				Thread.sleep(this.timercheck);
 				detectDeconnection();
 			} catch (InterruptedException e) {
 				e.printStackTrace();

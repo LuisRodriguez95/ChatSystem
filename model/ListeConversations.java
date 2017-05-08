@@ -6,24 +6,33 @@ import java.util.Map;
 import communication.Message;
 import communication.User;
 
-public class ListeConversations {
-
-	private HashMap<User,Conversation> listeConversations = new HashMap<User,Conversation>();
+public class ListeConversations extends HashMap<User,Conversation>{
 
 	public ListeConversations(){
+		super();
 	}
 
 	public Conversation getConversation(User user){
-		if (this.listeConversations.get(user)!=null) {
-			return this.listeConversations.get(user);
+		if (contains(user)) {
+			return this.get(user);
 		}
 		else{
 			Conversation conv = new Conversation(); 
-			this.listeConversations.put(user, conv);
-			return this.listeConversations.get(user);	
+			this.put(user, conv);
+			return this.get(user);	
 
 		}
 	}
+	
+	public boolean contains(User user){
+		if (get(user)!=null){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 
 	public void addReceivedMessage(Message message) {
 		Conversation conv = this.getConversation(message.getSender());
@@ -38,38 +47,9 @@ public class ListeConversations {
 
 	public String toString(){
 		String retour="Liste des Conversations : \n";
-		for(Map.Entry<User, Conversation> entry : this.listeConversations.entrySet()){
+		for(Map.Entry<User, Conversation> entry : this.entrySet()){
 			retour += "Contact : " + entry.getKey().getPseudo() + ": \n" + entry.getValue().toString() +"\n";
 		}
 		return retour;
 	}
-
-
-
-	//	
-	//	//TEST
-	//	public static void main(String[] args) {
-	//		User me=null;
-	//		User remote=null;
-	//		try {
-	//			me = new User("Thibaut",InetAddress.getLocalHost(),123456,typeConnect.CONNECTED);
-	//			remote = new User("Michel",InetAddress.getLocalHost(),123456,typeConnect.CONNECTED);
-	//		} catch (UnknownHostException e) {
-	//			e.printStackTrace();
-	//		}
-	//		ListeConversations liste = new ListeConversations();
-	//		
-	//		Message messtoSend = new Message(me,"Salut comment tu vas  ? ");
-	//		Message recvmess = new Message(remote,"la baiss et toi? ? ");
-	////		Message recvMess1 = new Message(bastien,"Yo negrito, tu peux me filer le cv stp ");
-	////		Message reponse = new Message(me,"yes, sure ");
-	//		liste.addSentMessageToConversation(remote,messtoSend);
-	//		//liste.addSentMessageToConversation(remote,messtoSend);
-	//		liste.addReceivedMessage(recvmess);
-	////		liste.addReceivedMessage(recvMess1);
-	////		liste.addSentMessageToConversation(bastien, reponse);
-	//		System.out.println(liste.toString());
-	//	}
-
-
 }
