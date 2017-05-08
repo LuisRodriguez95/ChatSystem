@@ -39,7 +39,7 @@ public class Communication implements MessageChannel { //echangerMessages
 		return this.convos;
 	}
 
-	public void addReceivedMessage(Message message) {
+	synchronized public void addReceivedMessage(Message message) {
 		this.convos.addReceivedMessage(message);
 		this.listener.newMessage(message.getSender());
 	}
@@ -87,4 +87,9 @@ public class Communication implements MessageChannel { //echangerMessages
 //			System.out.println(com.getConvos().toString());
 //		}
 //	}
+
+	public void stop() {
+		this.server.closeServer();
+		
+	}
 }
