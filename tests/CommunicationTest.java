@@ -26,7 +26,7 @@ public class CommunicationTest {
 	 * Envoi de 200 messages à la suite
 	 */
 	@Test
-	public void envoiMessages() {
+	public void TestSendMultipleMessages() {
 		InetAddress ip=null;
 		try {
 			ip = InetAddress.getLocalHost();
