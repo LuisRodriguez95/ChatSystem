@@ -113,14 +113,14 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 			public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
 				User user = (User) value;
 				this.setText(user.getPseudo() +" : "+ user.getStatut());
-				if (renderer.containsKey(user)){
+				if(isSelected){
+					this.setBackground(new Color(162, 217, 206));
+				}
+				else if (renderer.containsKey(user)){
 					if(renderer.get(user)>0){
 						this.setBackground(new Color(215, 189, 226));
 						this.setText(user.getPseudo() +" ["+renderer.get(user)+" message(s) to read] : "+ user.getStatut());
 					}
-				}
-				else if(isSelected){
-					this.setBackground(new Color(162, 217, 206));
 				}
 				else{
 					this.setBackground(Color.white);

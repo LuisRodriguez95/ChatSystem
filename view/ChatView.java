@@ -142,6 +142,7 @@ public class ChatView implements ListSelectionListener{
 								e1.printStackTrace();
 							}
 						}
+						input.setText(null);
 						ChatView.this.listeners.sendMessage(user, text);
 					}
 				});

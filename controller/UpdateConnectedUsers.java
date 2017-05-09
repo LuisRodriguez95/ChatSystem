@@ -39,6 +39,12 @@ public class UpdateConnectedUsers implements Runnable, UserUpdater {
 	public void updateUser(User user){
 		if(user.getEtat()==typeConnect.CONNECTED){
 			if (users.containsUser(user)) { // le user est déjà connu, 
+				if (!users.get(users.indexOf(user)).getStatut().contentEquals(user.getStatut())){
+					users.removeElement(user);
+					this.users.addElement(user);
+					this.usersdate.put(user, new Date());
+				}
+					
 				this.usersdate.put(user, new Date());
 			}
 			else {
