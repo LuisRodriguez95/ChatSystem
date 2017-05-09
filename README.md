@@ -47,7 +47,9 @@ The following tests have been runned with `Junit`. You can find them on the pack
   * `Description` : We instantiate a conversations List and perform several method call on it.
   * `Result` : Succes
 
+## Tests inter-projets
 
+Le chat à été testé et marche avec toutes les fonctionnalités disponibles avec le projet de [VIOZELANGE](https://github.com/tintinbanban/ChatSystem_POO)
   
 ## Authors
 
