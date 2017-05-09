@@ -97,12 +97,6 @@ public class ConnectedUsersWindow implements ListSelectionListener , AlerterNewM
 		c.gridy = 0;
 		pane.add(buttonDisconnect, c);
 
-		buttonVide = new JButton("VIde");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
-		c.gridx = 2;
-		c.gridy = 0;
-		pane.add(buttonVide, c);
 
 		listModel.addListDataListener(new MyListDataListener());
 

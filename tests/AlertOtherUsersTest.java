@@ -9,11 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import communication.User;
-import communication.User.typeConnect;
-
 import tcp.AlertOthersUsers;
 import tcp.CheckConnectedUsers;
+
+import communication.User;
+import communication.User.typeConnect;
 
 public class AlertOtherUsersTest {
 
